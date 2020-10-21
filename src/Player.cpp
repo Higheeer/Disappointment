@@ -5,7 +5,7 @@
 #include "Player.h"
 
 Player::Player(sf::Vector2f const& position, sf::Texture const& texture)
-	: position{ position }, size{ 16, 32 }
+	: position{ position }, size{ 32, 48 }
 {
 	this->body.setPosition(this->position);
 	this->body.setSize(this->size);
@@ -25,6 +25,11 @@ void Player::update(float const& deltaTime)
 void Player::draw(sf::RenderTarget& window) const
 {
 	window.draw(this->body);
+}
+
+sf::Vector2f Player::getPosition() const
+{
+	return this->position;
 }
 
 

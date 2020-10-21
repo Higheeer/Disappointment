@@ -7,7 +7,7 @@
 
 int main()
 {
-	sf::RenderWindow window{ sf::VideoMode(800, 600), "Simple RPG" };
+	sf::RenderWindow window{ sf::VideoMode(1024, 960), "Simple RPG" };
 	window.setFramerateLimit(60);
 
 	sf::Texture playerTexture;

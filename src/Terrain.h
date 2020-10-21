@@ -29,14 +29,16 @@ class Terrain
  public:
 	Terrain();
 
-	bool createChunk(Index const& chunkIndex);
+	void createChunk(Index const& chunkIndex);
 
-	void createNeighbours(Index const& chunkIndex);
+	[[nodiscard]]
+	Chunk getChunk(Index const& chunkIndex) const;
 
+ private:
 	[[nodiscard]]
 	bool hasNeighbours(Index const& chunkIndex) const;
 
-	Chunk getChunk(int const& x, int const& y) const;
+	void createNeighbours(Index const& chunkIndex);
 
  private:
 	std::map<std::pair<int, int>, Chunk> chunks;

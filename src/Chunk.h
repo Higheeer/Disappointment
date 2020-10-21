@@ -7,13 +7,15 @@
 
 #include <array>
 
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics.hpp>
 
-class Chunk
+class Chunk : public sf::Drawable
 {
  public:
-	Chunk(sf::Vector2f const& position);
+	explicit Chunk(sf::Vector2f const& position);
+
+ private:
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
  private:
 	sf::Vector2f position;

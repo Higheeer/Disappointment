@@ -9,8 +9,6 @@
 
 #include "Chunk.h"
 
-//@TODO: chunk size 64x64 i 16x16 block size
-
 struct Index
 {
 	Index(int const& x, int const& y)
@@ -27,21 +25,33 @@ class Player;
 class Terrain
 {
  public:
-	Terrain();
+	explicit Terrain(int const& chunkCreationRadius);
 
-	void createChunk(Index const& chunkIndex);
+	void generateTerrain(Player const& player);
 
 	[[nodiscard]]
-	Chunk getChunk(Index const& chunkIndex) const;
+	Chunk getChunk(Index const& index) const;
 
  private:
-	[[nodiscard]]
-	bool hasNeighbours(Index const& chunkIndex) const;
+	void createChunk(Index const& index);
 
-	void createNeighbours(Index const& chunkIndex);
+	[[nodiscard]]
+	bool hasNeighbours(Index const& index) const;
+
+	void createNeighbours(Index const& index);
 
  private:
 	std::map<std::pair<int, int>, Chunk> chunks;
+	int const chunkCreationRadius;
 };
+
+[[nodiscard]]
+Index coordsToIndex(float const& x, float const& y);
+
+[[nodiscard]]
+Index coordsToIndex(sf::Vector2f const& coords);
+
+[[nodiscard]]
+sf::Vector2f indexToCoords(Index const& index);
 
 #endif //SIMPLERPG_TERRAIN_H

@@ -4,42 +4,79 @@
 
 #include "Terrain.h"
 
-Terrain::Terrain()
-{
-	//@TODO Dodać w to miejsce jakiś loader świata lub generator.
-}
+#include "Player.h"
+#include "Constants.h"
 
-bool Terrain::hasNeighbours(Index const& chunkIndex) const
+Terrain::Terrain(int const& chunkCreationRadius)
+	: chunkCreationRadius(chunkCreationRadius)
 {
-	return this->chunks.contains(std::make_pair(chunkIndex.x - 1, chunkIndex.y)) &&
-		this->chunks.contains(std::make_pair(chunkIndex.x + 1, chunkIndex.y)) &&
-		this->chunks.contains(std::make_pair(chunkIndex.x, chunkIndex.y - 1)) &&
-		this->chunks.contains(std::make_pair(chunkIndex.x, chunkIndex.y + 1));
-}
-
-void Terrain::createNeighbours(Index const& chunkIndex)
-{
-	createChunk({ chunkIndex.x - 1, chunkIndex.y });
-	createChunk({ chunkIndex.x + 1, chunkIndex.y });
-	createChunk({ chunkIndex.x, chunkIndex.y - 1 });
-	createChunk({ chunkIndex.x, chunkIndex.y + 1 });
 
 }
 
-void Terrain::createChunk(Index const& chunkIndex)
+bool Terrain::hasNeighbours(Index const& index) const
 {
-	if (this->chunks.contains(std::make_pair(chunkIndex.x, chunkIndex.y)))
+	return this->chunks.contains(std::make_pair(index.x - 1, index.y)) &&
+		this->chunks.contains(std::make_pair(index.x + 1, index.y)) &&
+		this->chunks.contains(std::make_pair(index.x, index.y - 1)) &&
+		this->chunks.contains(std::make_pair(index.x, index.y + 1));
+}
+
+void Terrain::createNeighbours(Index const& index)
+{
+	createChunk({ index.x - 1, index.y });
+	createChunk({ index.x + 1, index.y });
+	createChunk({ index.x, index.y - 1 });
+	createChunk({ index.x, index.y + 1 });
+}
+
+void Terrain::createChunk(Index const& index)
+{
+	if (this->chunks.contains(std::make_pair(index.x, index.y)))
 	{
 		return;
 	}
 
-	sf::Vector2f position{ chunkIndex.x * 1024.f, chunkIndex.y * 1024.f };
-	this->chunks.emplace(std::make_pair(chunkIndex.x, chunkIndex.y), Chunk{ position });
+	sf::Vector2f position = indexToCoords(index);
+	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position });
 }
 
-Chunk Terrain::getChunk(const Index& chunkIndex) const
+Chunk Terrain::getChunk(const Index& index) const
 {
-	return this->chunks.at(std::make_pair(chunkIndex.x, chunkIndex.y));
+	return this->chunks.at(std::make_pair(index.x, index.y));
+}
+
+void Terrain::generateTerrain(Player const& player)
+{
+	Index playerChunk{ coordsToIndex(player.getPosition()) };
+
+	for (int x = playerChunk.x - this->chunkCreationRadius; x <= playerChunk.x + this->chunkCreationRadius; ++x)
+	{
+		for (int y = playerChunk.y - chunkCreationRadius; y <= playerChunk.y + chunkCreationRadius; ++y)
+		{
+			createChunk({ x, y });
+			if (!hasNeighbours({ x, y }))
+			{
+				createNeighbours({ x, y });
+			}
+		}
+	}
+}
+
+Index coordsToIndex(float const& x, float const& y)
+{
+	return { static_cast<int>(std::floor(x / CHUNK_SIZE)),
+			 static_cast<int>(std::floor(y / CHUNK_SIZE)) };
+}
+
+Index coordsToIndex(sf::Vector2f const& coords)
+{
+	return { static_cast<int>(std::floor(coords.x / CHUNK_SIZE)),
+			 static_cast<int>(std::floor(coords.y / CHUNK_SIZE)) };
+}
+
+sf::Vector2f indexToCoords(Index const& index)
+{
+	return { index.x * CHUNK_SIZE, index.y * CHUNK_SIZE };
 }
 
 

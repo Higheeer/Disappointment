@@ -5,7 +5,6 @@
 #include "Keyboard.h"
 
 #include <SFML/Window/Keyboard.hpp>
-#include <iostream>
 
 #include "Player.h"
 

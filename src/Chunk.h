@@ -12,14 +12,15 @@
 class Chunk : public sf::Drawable
 {
  public:
-	explicit Chunk(sf::Vector2f const& position);
+	Chunk(sf::Vector2f const& position);
 
  private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
  private:
 	sf::Vector2f position;
-	std::array<sf::RectangleShape, 9> blocks;
+	sf::VertexArray border;
+	std::vector<sf::RectangleShape> blocks;
 };
 
 #endif //SIMPLERPG_CHUNK_H

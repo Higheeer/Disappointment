@@ -8,6 +8,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
+#include "Terrain.h"
 
 class Player
 {
@@ -15,6 +16,7 @@ class Player
 	Player(sf::Vector2f const& position, sf::Texture const& texture);
 
 	void move(sf::Vector2f const& offset);
+
 	sf::Vector2f getPosition() const;
 
 	void update(float const& deltaTime);
@@ -26,4 +28,5 @@ class Player
 	sf::Vector2f size;
 	sf::RectangleShape body;
 };
+
 #endif //SIMPLERPG_PLAYER_H

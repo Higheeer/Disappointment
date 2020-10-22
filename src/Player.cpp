@@ -5,7 +5,7 @@
 #include "Player.h"
 
 Player::Player(sf::Vector2f const& position, sf::Texture const& texture)
-	: position{ position }, size{ 32, 48 }
+	: position{ position }, size{ 28, 48 }
 {
 	this->body.setPosition(this->position);
 	this->body.setSize(this->size);

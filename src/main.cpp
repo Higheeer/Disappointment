@@ -1,9 +1,11 @@
 #include "Player.h"
 #include "Keyboard.h"
-#include "Terrain.h"
 #include "Camera.h"
 
-#include <iostream>
+//@TODO Zrobić clampowanie na kamerze (zoom)
+//@TODO Poprawić czytelność kodu
+//@TODO Zacząć robić jakiś world generator i world loader
+//@TODO Zrobić przesuwanie kamery za pomocą myszki
 
 int main()
 {

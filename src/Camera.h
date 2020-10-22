@@ -31,11 +31,11 @@ class Camera : public sf::Drawable
 
  private:
 	std::vector<Chunk> visibleChunks;
-	Player* player;
+	int viewDistance;
 	sf::View view;
-	sf::Vector2i viewDistance;
-	float zoom;
 
+	Player* player;
+	sf::Vector2f playerOrigin;
 };
 
 #endif //SIMPLERPG_SRC_CAMERA_H_

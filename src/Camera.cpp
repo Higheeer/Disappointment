@@ -7,19 +7,17 @@
 #include "Terrain.h"
 #include "Player.h"
 
-#include <iostream> //@TODO do wyjebania
+#include "Constants.h"
 
 Camera::Camera(Player& player)
 	: player(&player)
 {
-	this->view.setSize(768, 768);
+	this->view.setSize(MAX_VIEW_SIZE, MAX_VIEW_SIZE);
 
-	this->viewDistance.x = 1;
-	this->viewDistance.y = 1;
+	this->viewDistance = 1;
 
-	sf::Vector2f playerOrigin; //@TODO też do wyjebania
-	playerOrigin.x = 28 / 2;//@TODO też do wyjebania
-	playerOrigin.y = 48 / 2;//@TODO też do wyjebania
+	playerOrigin.x = 28.f / 2.f;
+	playerOrigin.y = 48.f / 2.f;
 
 	this->view.setCenter({ this->player->getPosition() + playerOrigin });
 }
@@ -37,18 +35,17 @@ void Camera::update(Terrain const& terrain, sf::RenderWindow& window)
 	this->visibleChunks.clear();
 
 	checkVisibleChunks(terrain);
-	sf::Vector2f playerOrigin{ 14, 24 };//@TODO też do wyjebania
 
-	this->view.setCenter({ this->player->getPosition() + playerOrigin });
+	this->view.setCenter({ this->player->getPosition() + this->playerOrigin });
 	window.setView(this->view);
 }
 
 void Camera::checkVisibleChunks(Terrain const& terrain)
 {
 	Index playerChunk{ coordsToIndex(player->getPosition()) };
-	for (int x = playerChunk.x - this->viewDistance.x; x <= playerChunk.x + this->viewDistance.x; x++)
+	for (int x = playerChunk.x - this->viewDistance; x <= playerChunk.x + this->viewDistance; x++)
 	{
-		for (int y = playerChunk.y - this->viewDistance.y; y <= playerChunk.y + this->viewDistance.y; y++)
+		for (int y = playerChunk.y - this->viewDistance; y <= playerChunk.y + this->viewDistance; y++)
 		{
 			addVisibleChunk(terrain.getChunk({ x, y }));
 		}
@@ -62,10 +59,12 @@ void Camera::addVisibleChunk(Chunk const& chunk)
 
 void Camera::zoomIn()
 {
+
 	view.zoom(2);
 }
 
 void Camera::zoomOut()
 {
+
 	view.zoom(0.5);
 }

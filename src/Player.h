@@ -19,7 +19,7 @@ class Player
 
 	sf::Vector2f getPosition() const;
 
-	void update(float const& deltaTime);
+	void update(/*float const& deltaTime*/);
 
 	void draw(sf::RenderTarget& window) const;
 

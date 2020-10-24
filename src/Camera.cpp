@@ -12,22 +12,14 @@
 Camera::Camera(Player& player)
 	: player(&player)
 {
-	this->view.setSize(MAX_VIEW_SIZE, MAX_VIEW_SIZE);
+	this->view.setSize(ViewSize::Max, ViewSize::Max);
 
 	this->viewDistance = 1;
 
-	playerOrigin.x = 28.f / 2.f;
-	playerOrigin.y = 48.f / 2.f;
+	this->playerOrigin.x = PlayerDimensions::Width / 2.0f;
+	this->playerOrigin.y = PlayerDimensions::Height / 2.0f;
 
-	this->view.setCenter({ this->player->getPosition() + playerOrigin });
-}
-
-void Camera::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	for (auto const& i : this->visibleChunks)
-	{
-		target.draw(i);
-	}
+	this->view.setCenter({ this->player->getPosition() + this->playerOrigin });
 }
 
 void Camera::update(Terrain const& terrain, sf::RenderWindow& window)
@@ -59,12 +51,26 @@ void Camera::addVisibleChunk(Chunk const& chunk)
 
 void Camera::zoomIn()
 {
+	this->view.zoom(1.25);
 
-	view.zoom(2);
+	sf::Vector2f viewSize = this->view.getSize();
+	view.setSize(std::clamp(viewSize.x, ViewSize::Min, ViewSize::Max),
+		std::clamp(viewSize.y, ViewSize::Min, ViewSize::Max));
 }
 
 void Camera::zoomOut()
 {
+	this->view.zoom(0.75);
 
-	view.zoom(0.5);
+	sf::Vector2f viewSize = this->view.getSize();
+	this->view.setSize(std::clamp(viewSize.x, ViewSize::Min, ViewSize::Max),
+		std::clamp(viewSize.y, ViewSize::Min, ViewSize::Max));
+}
+
+void Camera::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	for (auto const& i : this->visibleChunks)
+	{
+		target.draw(i, states);
+	}
 }

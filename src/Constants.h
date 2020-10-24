@@ -5,12 +5,24 @@
 #ifndef SIMPLERPG_SRC_CONSTANTS_H_
 #define SIMPLERPG_SRC_CONSTANTS_H_
 
-float constexpr CHUNK_SIZE{ 256 };
-float constexpr BLOCK_SIZE{ 32 };
+struct ChunkDimensions
+{
+	static float constexpr ChunkSize{ 256 };
+	static float constexpr BlockSize{ 32 };
 
-int constexpr BLOCKS_PER_CHUNK{ static_cast<int>((CHUNK_SIZE / BLOCK_SIZE) * (CHUNK_SIZE / BLOCK_SIZE)) };
+	static int constexpr BlocksPerChunk{ static_cast<int>((ChunkSize / BlockSize) * (ChunkSize / BlockSize)) };
+};
 
-float constexpr MAX_VIEW_SIZE{ 768 };
-float constexpr MIN_VIEW_SIZE{ 256 };
+struct ViewSize
+{
+	static float constexpr Max{ 768 };
+	static float constexpr Min{ 256 };
+};
+
+struct PlayerDimensions
+{
+	static float constexpr Width{ 28 };
+	static float constexpr Height{ 48 };
+};
 
 #endif //SIMPLERPG_SRC_CONSTANTS_H_

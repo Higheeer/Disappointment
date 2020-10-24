@@ -4,8 +4,10 @@
 
 #include "Player.h"
 
+#include "Constants.h"
+
 Player::Player(sf::Vector2f const& position, sf::Texture const& texture)
-	: position{ position }, size{ 28, 48 }
+	: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }
 {
 	this->body.setPosition(this->position);
 	this->body.setSize(this->size);
@@ -17,8 +19,9 @@ void Player::move(sf::Vector2f const& offset)
 	this->position += offset;
 }
 
-void Player::update(float const& deltaTime)
+void Player::update(/*float const& deltaTime*/)
 {
+
 	this->body.setPosition(this->position);
 }
 

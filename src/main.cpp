@@ -48,7 +48,7 @@ int main()
 		terrain.generateTerrain(player);
 
 		camera.update(terrain, window);
-		player.update(deltaTime);
+		player.update();
 
 		window.clear();
 		window.draw(camera);

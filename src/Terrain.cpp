@@ -51,7 +51,7 @@ void Terrain::generateTerrain(Player const& player)
 
 	for (int x = playerChunk.x - this->chunkCreationRadius; x <= playerChunk.x + this->chunkCreationRadius; ++x)
 	{
-		for (int y = playerChunk.y - chunkCreationRadius; y <= playerChunk.y + chunkCreationRadius; ++y)
+		for (int y = playerChunk.y - this->chunkCreationRadius; y <= playerChunk.y + this->chunkCreationRadius; ++y)
 		{
 			createChunk({ x, y });
 			if (!hasNeighbours({ x, y }))
@@ -64,19 +64,20 @@ void Terrain::generateTerrain(Player const& player)
 
 Index coordsToIndex(float const& x, float const& y)
 {
-	return { static_cast<int>(std::floor(x / CHUNK_SIZE)),
-			 static_cast<int>(std::floor(y / CHUNK_SIZE)) };
+	return { static_cast<int>(std::floor(x / ChunkDimensions::ChunkSize)),
+			 static_cast<int>(std::floor(y / ChunkDimensions::ChunkSize)) };
 }
 
 Index coordsToIndex(sf::Vector2f const& coords)
 {
-	return { static_cast<int>(std::floor(coords.x / CHUNK_SIZE)),
-			 static_cast<int>(std::floor(coords.y / CHUNK_SIZE)) };
+	return { static_cast<int>(std::floor(coords.x / ChunkDimensions::ChunkSize)),
+			 static_cast<int>(std::floor(coords.y / ChunkDimensions::ChunkSize)) };
 }
 
 sf::Vector2f indexToCoords(Index const& index)
 {
-	return { index.x * CHUNK_SIZE, index.y * CHUNK_SIZE };
+	return { static_cast<float>(index.x * ChunkDimensions::ChunkSize),
+			 static_cast<float>(index.y * ChunkDimensions::ChunkSize) };
 }
 
 

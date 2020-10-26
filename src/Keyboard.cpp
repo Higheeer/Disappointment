@@ -8,9 +8,15 @@
 
 #include "Player.h"
 
+struct Direction
+{
+	int x: 2;
+	int y: 2;
+};
+
 void Keyboard::playerMovementControl(Player& player, float const& deltaTime)
 {
-	sf::Vector2f direction{ 0, 0 };
+	Direction direction{ 0, 0 };
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		direction.y = -1;

@@ -7,14 +7,12 @@
 #include "Terrain.h"
 #include "Player.h"
 
-#include "Constants.h"
-
 Camera::Camera(Player& player)
-	: player(&player)
+	: player(&player), cameraSpeed(300.f), offset(50)
 {
-	this->view.setSize(ViewSize::Max, ViewSize::Max);
+	this->view.setSize(WindowSize::Width, WindowSize::Height);
 
-	this->viewDistance = 1;
+	this->viewDistance = 2;
 
 	this->playerOrigin.x = PlayerDimensions::Width / 2.0f;
 	this->playerOrigin.y = PlayerDimensions::Height / 2.0f;
@@ -28,7 +26,6 @@ void Camera::update(Terrain const& terrain, sf::RenderWindow& window)
 
 	checkVisibleChunks(terrain);
 
-	this->view.setCenter({ this->player->getPosition() + this->playerOrigin });
 	window.setView(this->view);
 }
 
@@ -67,10 +64,62 @@ void Camera::zoomOut()
 		std::clamp(viewSize.y, ViewSize::Min, ViewSize::Max));
 }
 
-void Camera::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Camera::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	for (auto const& i : this->visibleChunks)
 	{
-		target.draw(i, states);
+		target.draw(i);
 	}
 }
+
+//@TODO ten kod jest do poprawy, lub wywalenia
+/*
+void Camera::mouseControl(float const& deltaTime, sf::RenderWindow const& window)
+{
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+
+	sf::Vector2f distanceToNearestScreenBorder{ 0, 0 };
+	sf::Vector2f distanceRatioBetweenMouseAndBorder{ 0, 0 };
+
+	if (mousePosition.x < offset)
+	{
+		distanceToNearestScreenBorder.x = static_cast<float>(offset - mousePosition.x);
+		direction.x = -1;
+	}
+	if (mousePosition.x > WindowSize::Width - offset)
+	{
+		distanceToNearestScreenBorder.x = static_cast<float>( mousePosition.x - (WindowSize::Width - offset - 1));
+		direction.x = 1;
+	}
+	if (mousePosition.y < offset)
+	{
+		distanceToNearestScreenBorder.y = static_cast<float>(offset - mousePosition.y);
+		direction.y = -1;
+	}
+	if (mousePosition.y > WindowSize::Height - offset)
+	{
+		distanceToNearestScreenBorder.y = static_cast<float>( mousePosition.y - (WindowSize::Height - offset - 1));
+		direction.y = 1;
+	}
+
+	distanceRatioBetweenMouseAndBorder.x = distanceToNearestScreenBorder.x / offset;
+	distanceRatioBetweenMouseAndBorder.y = distanceToNearestScreenBorder.y / offset;
+
+	float const normalizedCameraSpeed{ (direction.x != 0 && direction.y != 0) ?
+									   (cameraSpeed * (cameraSpeed / (cameraSpeed * std::sqrt(2.f)))) : (cameraSpeed) };
+
+	this->view.move({
+		static_cast<float>(direction.x * (distanceRatioBetweenMouseAndBorder.x * normalizedCameraSpeed) * deltaTime),
+		static_cast<float>(direction.y * (distanceRatioBetweenMouseAndBorder.y * normalizedCameraSpeed) * deltaTime) });
+
+	this->view.setCenter(std::clamp(this->view.getCenter().x,
+		this->player->getPosition().x - 250.f,
+		this->player->getPosition().x + playerOrigin.x + 250.f), this->view.getCenter().y);
+
+	this->view.setCenter(this->view.getCenter().x,
+		std::clamp(this->view.getCenter().y,
+			this->player->getPosition().y - 250.f,
+			this->player->getPosition().y + playerOrigin.y + 250.f));
+
+
+}*/

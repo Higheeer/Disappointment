@@ -15,7 +15,7 @@ class Chunk : public sf::Drawable
 	Chunk(sf::Vector2f const& position);
 
  private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
  private:
 	sf::Vector2f position;

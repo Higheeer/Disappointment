@@ -5,7 +5,12 @@
 #ifndef SIMPLERPG_SRC_CAMERA_H_
 #define SIMPLERPG_SRC_CAMERA_H_
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include <vector>
+
+#include "Constants.h"
 
 class Player;
 class Terrain;
@@ -27,12 +32,15 @@ class Camera : public sf::Drawable
 
 	void addVisibleChunk(Chunk const& chunk);
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
  private:
 	std::vector<Chunk> visibleChunks;
 	int viewDistance;
 	sf::View view;
+
+	float const cameraSpeed;
+	float const offset;
 
 	Player* player;
 	sf::Vector2f playerOrigin;

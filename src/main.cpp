@@ -1,15 +1,14 @@
 #include "Player.h"
 #include "Keyboard.h"
 #include "Camera.h"
+#include "Constants.h"
 
-//@TODO Zrobić clampowanie na kamerze (zoom)
 //@TODO Poprawić czytelność kodu
 //@TODO Zacząć robić jakiś world generator i world loader
-//@TODO Zrobić przesuwanie kamery za pomocą myszki
 
 int main()
 {
-	sf::RenderWindow window{ sf::VideoMode(1024, 960), "Simple RPG" };
+	sf::RenderWindow window{ sf::VideoMode(WindowSize::Width, WindowSize::Height), "Simple RPG" };
 	window.setFramerateLimit(60);
 	window.setMouseCursorGrabbed(true);
 
@@ -32,7 +31,14 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+			}
+
+			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
+			{
+				window.close();
+			}
 
 			if (event.type == sf::Event::MouseWheelScrolled)
 			{

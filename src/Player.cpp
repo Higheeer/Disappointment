@@ -21,7 +21,6 @@ void Player::move(sf::Vector2f const& offset)
 
 void Player::update(/*float const& deltaTime*/)
 {
-
 	this->body.setPosition(this->position);
 }
 

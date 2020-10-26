@@ -30,13 +30,13 @@ Chunk::Chunk(sf::Vector2f const& position)
 	}
 }
 
-void Chunk::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	for (auto const& i : this->blocks)
 	{
-		target.draw(i, states);
+		target.draw(i);
 	}
 
-	target.draw(border, states);
+	target.draw(border);
 }
 

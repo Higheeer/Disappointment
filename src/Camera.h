@@ -32,6 +32,8 @@ class Camera : public sf::Drawable
 
 	void addVisibleChunk(Chunk const& chunk);
 
+	void clampViewSize();
+
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
  private:

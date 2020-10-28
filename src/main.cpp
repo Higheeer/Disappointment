@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "Keyboard.h"
 #include "Camera.h"
 #include "Constants.h"
 
@@ -49,8 +48,6 @@ int main()
 			}
 
 		}
-
-		Keyboard::playerMovementControl(player, deltaTime);
 		terrain.generateTerrain(player);
 
 		camera.update(terrain, window);

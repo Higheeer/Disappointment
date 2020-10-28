@@ -49,19 +49,13 @@ void Camera::addVisibleChunk(Chunk const& chunk)
 void Camera::zoomIn()
 {
 	this->view.zoom(1.25);
-
-	sf::Vector2f viewSize = this->view.getSize();
-	view.setSize(std::clamp(viewSize.x, ViewSize::Min, ViewSize::Max),
-		std::clamp(viewSize.y, ViewSize::Min, ViewSize::Max));
+	clampViewSize();
 }
 
 void Camera::zoomOut()
 {
 	this->view.zoom(0.75);
-
-	sf::Vector2f viewSize = this->view.getSize();
-	this->view.setSize(std::clamp(viewSize.x, ViewSize::Min, ViewSize::Max),
-		std::clamp(viewSize.y, ViewSize::Min, ViewSize::Max));
+	clampViewSize();
 }
 
 void Camera::draw(sf::RenderTarget& target, sf::RenderStates) const
@@ -70,6 +64,13 @@ void Camera::draw(sf::RenderTarget& target, sf::RenderStates) const
 	{
 		target.draw(i);
 	}
+}
+
+void Camera::clampViewSize()
+{
+	sf::Vector2f viewSize = this->view.getSize();
+	this->view.setSize(std::clamp(viewSize.x, ViewSize::Min, ViewSize::Max),
+		std::clamp(viewSize.y, ViewSize::Min, ViewSize::Max));
 }
 
 //@TODO ten kod jest do poprawy, lub wywalenia

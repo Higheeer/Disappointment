@@ -5,9 +5,9 @@
 #ifndef SIMPLERPG_CHUNK_H
 #define SIMPLERPG_CHUNK_H
 
-#include <array>
-
 #include <SFML/Graphics.hpp>
+
+#include <array>
 
 class Chunk : public sf::Drawable
 {

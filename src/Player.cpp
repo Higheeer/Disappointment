@@ -34,4 +34,11 @@ sf::Vector2f Player::getPosition() const
 	return this->position;
 }
 
+void Player::moveToCursor(float const& deltaTime, sf::RenderWindow& window)
+{
+	destination = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+	sf::Vector2f const distance = destination - position;
+}
+
 

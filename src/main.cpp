@@ -1,3 +1,6 @@
+#include <cmath>
+#include <iostream>
+
 #include "Player.h"
 #include "Camera.h"
 #include "Constants.h"
@@ -23,7 +26,7 @@ int main()
 
 	while (window.isOpen())
 	{
-		float deltaTime = clock.getElapsedTime().asSeconds();
+		//float deltaTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
 		sf::Event event{};

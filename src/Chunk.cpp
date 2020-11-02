@@ -4,8 +4,6 @@
 
 #include "Chunk.h"
 
-#include "Constants.h"
-
 Chunk::Chunk(sf::Vector2f const& position)
 	: position(position)
 {
@@ -20,7 +18,7 @@ Chunk::Chunk(sf::Vector2f const& position)
 		temporaryBlock.setPosition(column * ChunkDimensions::BlockSize + this->position.x,
 			row * ChunkDimensions::BlockSize + this->position.y);
 
-		this->blocks.push_back(std::move(temporaryBlock));
+		this->blocks[i] = std::move(temporaryBlock);
 
 		if (++column == blocksPerRow)
 		{
@@ -36,7 +34,5 @@ void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
 	{
 		target.draw(i);
 	}
-
-	target.draw(border);
 }
 

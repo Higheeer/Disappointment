@@ -10,6 +10,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "Terrain.h"
+#include "Mouse.h"
 
 class Player
 {
@@ -18,20 +19,21 @@ class Player
 
 	void move(sf::Vector2f const& offset);
 
-	void moveToCursor(float const& deltaTime, sf::RenderWindow& window);
+	void click(sf::RenderWindow& window);
 
 	sf::Vector2f getPosition() const;
 
-	void update(/*float const& deltaTime*/);
+	void update(float const& deltaTime);
 
 	void draw(sf::RenderTarget& window) const;
 
  private:
+	Mouse mouse;
+
 	sf::Vector2f position;
 	sf::Vector2f size;
-	sf::RectangleShape body;
 
-	sf::Vector2f destination;
+	sf::RectangleShape body;
 };
 
 #endif //SIMPLERPG_PLAYER_H

@@ -1,12 +1,5 @@
-#include <cmath>
-#include <iostream>
-
 #include "Player.h"
 #include "Camera.h"
-#include "Constants.h"
-
-//@TODO Poprawić czytelność kodu
-//@TODO Zacząć robić jakiś world generator i world loader
 
 int main()
 {
@@ -26,7 +19,8 @@ int main()
 
 	while (window.isOpen())
 	{
-		//float deltaTime = clock.getElapsedTime().asSeconds();
+		window.clear();
+		float deltaTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
 		sf::Event event{};
@@ -49,14 +43,17 @@ int main()
 				if (event.mouseWheelScroll.delta < 0)
 					camera.zoomIn();
 			}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				player.click(window);
+			}
 
 		}
 		terrain.generateTerrain(player);
 
 		camera.update(terrain, window);
-		player.update();
+		player.update(deltaTime);
 
-		window.clear();
 		window.draw(camera);
 		player.draw(window);
 		window.display();

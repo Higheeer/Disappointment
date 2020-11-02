@@ -11,11 +11,6 @@
 
 struct Index
 {
-	Index(int const& x, int const& y)
-		: x{ x }, y{ y }
-	{
-	}
-
 	int const x;
 	int const y;
 };
@@ -29,14 +24,18 @@ class Terrain
 
 	void generateTerrain(Player const& player);
 
-	[[nodiscard]]
-	Chunk getChunk(Index const& index) const;
+	[[nodiscard]] Chunk getChunk(Index const& index) const;
+
+	[[nodiscard]] static Index coordsToIndex(float const& x, float const& y);
+
+	[[nodiscard]] static Index coordsToIndex(sf::Vector2f const& coords);
+
+	[[nodiscard]] static sf::Vector2f indexToCoords(Index const& index);
 
  private:
 	void createChunk(Index const& index);
 
-	[[nodiscard]]
-	bool hasNeighbours(Index const& index) const;
+	[[nodiscard]] bool hasNeighbours(Index const& index) const;
 
 	void createNeighbours(Index const& index);
 
@@ -45,13 +44,6 @@ class Terrain
 	int const chunkCreationRadius;
 };
 
-[[nodiscard]]
-Index coordsToIndex(float const& x, float const& y);
 
-[[nodiscard]]
-Index coordsToIndex(sf::Vector2f const& coords);
-
-[[nodiscard]]
-sf::Vector2f indexToCoords(Index const& index);
 
 #endif //SIMPLERPG_TERRAIN_H

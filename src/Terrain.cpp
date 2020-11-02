@@ -5,7 +5,6 @@
 #include "Terrain.h"
 
 #include "Player.h"
-#include "Constants.h"
 
 Terrain::Terrain(int const& chunkCreationRadius)
 	: chunkCreationRadius(chunkCreationRadius)
@@ -47,7 +46,7 @@ Chunk Terrain::getChunk(const Index& index) const
 
 void Terrain::generateTerrain(Player const& player)
 {
-	Index playerChunk{ coordsToIndex(player.getPosition()) };
+	Index const playerChunk{ coordsToIndex(player.getPosition()) };
 
 	for (int x = playerChunk.x - this->chunkCreationRadius; x <= playerChunk.x + this->chunkCreationRadius; ++x)
 	{
@@ -62,19 +61,19 @@ void Terrain::generateTerrain(Player const& player)
 	}
 }
 
-Index coordsToIndex(float const& x, float const& y)
+Index Terrain::coordsToIndex(float const& x, float const& y)
 {
 	return { static_cast<int>(std::floor(x / ChunkDimensions::ChunkSize)),
 			 static_cast<int>(std::floor(y / ChunkDimensions::ChunkSize)) };
 }
 
-Index coordsToIndex(sf::Vector2f const& coords)
+Index Terrain::coordsToIndex(sf::Vector2f const& coords)
 {
 	return { static_cast<int>(std::floor(coords.x / ChunkDimensions::ChunkSize)),
 			 static_cast<int>(std::floor(coords.y / ChunkDimensions::ChunkSize)) };
 }
 
-sf::Vector2f indexToCoords(Index const& index)
+sf::Vector2f Terrain::indexToCoords(Index const& index)
 {
 	return { static_cast<float>(index.x * ChunkDimensions::ChunkSize),
 			 static_cast<float>(index.y * ChunkDimensions::ChunkSize) };

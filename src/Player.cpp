@@ -4,10 +4,8 @@
 
 #include "Player.h"
 
-#include "Constants.h"
-
 Player::Player(sf::Vector2f const& position, sf::Texture const& texture)
-	: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }
+	: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }, mouse(*this)
 {
 	this->body.setPosition(this->position);
 	this->body.setSize(this->size);
@@ -19,9 +17,10 @@ void Player::move(sf::Vector2f const& offset)
 	this->position += offset;
 }
 
-void Player::update(/*float const& deltaTime*/)
+void Player::update(float const& deltaTime)
 {
-	this->body.setPosition(this->position);
+	this->body.setPosition(this->position.x - 14, this->position.y - 24);
+	this->mouse.update(deltaTime);
 }
 
 void Player::draw(sf::RenderTarget& window) const
@@ -34,11 +33,9 @@ sf::Vector2f Player::getPosition() const
 	return this->position;
 }
 
-void Player::moveToCursor(float const& deltaTime, sf::RenderWindow& window)
+void Player::click(sf::RenderWindow& window)
 {
-	destination = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-
-	sf::Vector2f const distance = destination - position;
+	this->mouse.leftClick(window);
 }
 
 

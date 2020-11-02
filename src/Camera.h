@@ -41,9 +41,6 @@ class Camera : public sf::Drawable
 	int viewDistance;
 	sf::View view;
 
-	float const cameraSpeed;
-	float const offset;
-
 	Player* player;
 	sf::Vector2f playerOrigin;
 };

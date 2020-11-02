@@ -26,7 +26,7 @@ struct WindowSize
 
 struct ViewSize
 {
-	static float constexpr Max{ 1024 };
+	static float constexpr Max{ 2048 };
 	static float constexpr Min{ 300 };
 };
 

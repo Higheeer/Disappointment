@@ -4,8 +4,10 @@
 
 #include "Chunk.h"
 
-Chunk::Chunk(sf::Vector2f const& position)
-	: position(position)
+#include "Terrain.h"
+
+Chunk::Chunk(sf::Vector2f const& position, Terrain& terrain)
+	: position{ position }, terrain{ &terrain }
 {
 	unsigned int row{ 0 }, column{ 0 };
 	unsigned int const blocksPerRow{ static_cast<unsigned int>(sqrt(ChunkDimensions::BlocksPerChunk)) };

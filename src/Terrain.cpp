@@ -6,8 +6,8 @@
 
 #include "Player.h"
 
-Terrain::Terrain(int const& chunkCreationRadius)
-	: chunkCreationRadius(chunkCreationRadius)
+Terrain::Terrain()
+	: chunkCreationRadius{5}
 {
 
 }

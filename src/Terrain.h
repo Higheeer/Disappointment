@@ -20,7 +20,7 @@ class Player;
 class Terrain
 {
  public:
-	explicit Terrain(int const& chunkCreationRadius);
+	Terrain();
 
 	void generateTerrain(Player const& player);
 

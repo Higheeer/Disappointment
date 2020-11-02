@@ -11,10 +11,12 @@
 
 #include "Constants.h"
 
+class Terrain;
+
 class Chunk : public sf::Drawable
 {
  public:
-	explicit Chunk(sf::Vector2f const& position);
+	Chunk(sf::Vector2f const& position, Terrain& terrain);
 
  private:
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
@@ -22,6 +24,8 @@ class Chunk : public sf::Drawable
  private:
 	sf::Vector2f position;
 	std::array<sf::RectangleShape, ChunkDimensions::BlocksPerChunk> blocks;
+
+	Terrain* terrain;
 };
 
 #endif //SIMPLERPG_CHUNK_H

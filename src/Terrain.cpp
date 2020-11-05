@@ -36,7 +36,7 @@ void Terrain::createChunk(Index const& index)
 	}
 
 	sf::Vector2f position = indexToCoords(index);
-	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position });
+	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position, *this });
 }
 
 Chunk Terrain::getChunk(const Index& index) const

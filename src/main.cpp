@@ -15,7 +15,7 @@ int main()
 	Camera camera{ player };
 	sf::Clock clock;
 
-	Terrain terrain{ 5 };
+	Terrain terrain;
 
 	while (window.isOpen())
 	{

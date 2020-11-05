@@ -16,7 +16,7 @@ Chunk::Chunk(sf::Vector2f const& position, Terrain& terrain)
 	{
 		sf::RectangleShape temporaryBlock;
 		temporaryBlock.setSize({ ChunkDimensions::BlockSize, ChunkDimensions::BlockSize });
-		temporaryBlock.setFillColor(sf::Color::Yellow);
+		temporaryBlock.setFillColor(sf::Color(0, 128, 0));
 		temporaryBlock.setPosition(column * ChunkDimensions::BlockSize + this->position.x,
 			row * ChunkDimensions::BlockSize + this->position.y);
 

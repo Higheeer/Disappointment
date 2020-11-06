@@ -6,6 +6,8 @@
 
 #include "Terrain.h"
 
+#include "RandomNumberGenerator.h"
+
 Chunk::Chunk(sf::Vector2f const& position, Terrain& terrain)
 	: position{ position }, terrain{ &terrain }
 {
@@ -28,6 +30,8 @@ Chunk::Chunk(sf::Vector2f const& position, Terrain& terrain)
 			++row;
 		}
 	}
+
+	createStructure();
 }
 
 void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
@@ -36,5 +40,22 @@ void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
 	{
 		target.draw(i);
 	}
+}
+
+void Chunk::createStructure()
+{
+	switch (RandomNumberGenerator::getNumber(0, 50))
+	{
+		case 1:
+		{
+			createHouse();
+			break;
+		}
+	}
+}
+
+void Chunk::createHouse()
+{
+	this->blocks[4].setFillColor(sf::Color(128, 12, 255));
 }
 

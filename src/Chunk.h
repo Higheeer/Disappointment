@@ -19,6 +19,10 @@ class Chunk : public sf::Drawable
 	Chunk(sf::Vector2f const& position, Terrain& terrain);
 
  private:
+	void createStructure();
+
+	void createHouse();
+
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
  private:

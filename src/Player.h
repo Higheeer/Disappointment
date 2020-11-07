@@ -10,26 +10,23 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "Terrain.h"
-#include "Mouse.h"
 
 class Player
 {
  public:
 	Player(sf::Vector2f const& position, sf::Texture const& texture);
 
-	void move(sf::Vector2f const& offset);
+	void move(float const& deltaTime);
 
-	void click(sf::RenderWindow& window);
+	void rotation(sf::RenderWindow const& window);
 
 	sf::Vector2f getPosition() const;
 
-	void update(float const& deltaTime);
+	void update(float const& deltaTime, sf::RenderWindow const& window);
 
 	void draw(sf::RenderTarget& window) const;
 
  private:
-	Mouse mouse;
-
 	sf::Vector2f position;
 	sf::Vector2f size;
 

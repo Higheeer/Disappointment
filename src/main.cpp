@@ -43,16 +43,11 @@ int main()
 				if (event.mouseWheelScroll.delta < 0)
 					camera.zoomIn();
 			}
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				player.click(window);
-			}
-
 		}
 		terrain.generateTerrain(player);
 
 		camera.update(terrain, window);
-		player.update(deltaTime);
+		player.update(deltaTime, window);
 
 		window.draw(camera);
 		player.draw(window);

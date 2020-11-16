@@ -1,5 +1,9 @@
 #include <SFML/Graphics/Texture.hpp>
 
+#include <iostream>
+
+#include <SFML/Window/Event.hpp>
+
 #include "Player.h"
 #include "ChunkManager.h"
 #include "Camera.h"
@@ -18,6 +22,9 @@ int main()
 	sf::Clock clock;
 
 	Terrain::ChunkManager chunkManager;
+
+	std::cout<<sizeof(sf::RectangleShape )<<std::endl;
+	std::cout<< sizeof(Terrain::Chunk::BlockType)<<std::endl;
 
 	while (window.isOpen())
 	{

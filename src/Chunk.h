@@ -5,30 +5,27 @@
 #ifndef SIMPLERPG_CHUNK_H
 #define SIMPLERPG_CHUNK_H
 
-#include <SFML/Graphics.hpp>
-
 #include <array>
+
+#include <SFML/System/Vector2.hpp>
 
 #include "Constants.h"
 
 namespace Terrain
 {
-	class ChunkManager;
+	class Chunk
+	{
+	public:
+		explicit Chunk(sf::Vector2f const& position);
+
+		enum class BlockType
+		{
+			Dirt, Stone, Sand
+		};
+
+	private:
+		sf::Vector2f position;
+		std::array<std::pair<BlockType, sf::Vector2f>, ChunkDimensions::BlocksPerChunk> blocks;
+	};
 }
-
-class Chunk : public sf::Drawable
-{
-public:
-	Chunk(sf::Vector2f const& position, Terrain::ChunkManager& chunkManager);
-
-private:
-	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
-
-private:
-	sf::Vector2f position;
-	std::array<sf::RectangleShape, ChunkDimensions::BlocksPerChunk> blocks;
-
-	Terrain::ChunkManager* chunkManager;
-};
-
 #endif //SIMPLERPG_CHUNK_H

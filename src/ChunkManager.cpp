@@ -40,7 +40,7 @@ void ChunkManager::createChunk(Index const& index)
 	}
 
 	sf::Vector2f position = indexToCoords(index);
-	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position, *this });
+	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position});
 }
 
 Chunk ChunkManager::getChunk(const Index& index) const

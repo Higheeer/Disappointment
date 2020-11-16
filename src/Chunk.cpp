@@ -4,39 +4,27 @@
 
 #include "Chunk.h"
 
-#include "ChunkManager.h"
-
 #include "RandomNumberGenerator.h"
 
-Chunk::Chunk(sf::Vector2f const& position, Terrain::ChunkManager& chunkManager)
-		: position{ position }, chunkManager{ &chunkManager }
+using namespace Terrain;
+
+Chunk::Chunk(sf::Vector2f const& position)
+		: position{ position }
 {
 	unsigned int row{ 0 }, column{ 0 };
 	unsigned int const blocksPerRow{ static_cast<unsigned int>(std::sqrt(ChunkDimensions::BlocksPerChunk)) };
 
-	for (int i = 0; i < ChunkDimensions::BlocksPerChunk; ++i)
+	for (auto& block : blocks)
 	{
-		sf::RectangleShape temporaryBlock;
-		temporaryBlock.setSize({ ChunkDimensions::BlockSize, ChunkDimensions::BlockSize });
-		temporaryBlock.setFillColor(sf::Color(0, 128, 0));
-		temporaryBlock.setPosition(column * ChunkDimensions::BlockSize + this->position.x,
-				row * ChunkDimensions::BlockSize + this->position.y);
-
-		this->blocks[i] = std::move(temporaryBlock);
+		block = std::make_pair(BlockType::Dirt,
+				sf::Vector2f{ column * ChunkDimensions::BlockSize + this->position.x,
+							  row * ChunkDimensions::BlockSize + this->position.y });
 
 		if (++column == blocksPerRow)
 		{
 			column = 0;
 			++row;
 		}
-	}
-}
-
-void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
-{
-	for (auto const& i : this->blocks)
-	{
-		target.draw(i);
 	}
 }
 

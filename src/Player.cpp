@@ -5,11 +5,16 @@
 #include "Player.h"
 
 #include <numbers>
+#include <cmath>
 
-#include <iostream>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Mouse.hpp>
+
+#include "Constants.h"
+
 
 Player::Player(sf::Vector2f const& position, sf::Texture const& texture)
-	: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }
+		: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }
 {
 	this->body.setPosition(this->position);
 	this->body.setSize(this->size);
@@ -41,7 +46,7 @@ void Player::move(float const& deltaTime)
 	float velocity{ 100.f };
 	if (direction.x != 0 && direction.y != 0)
 	{
-		velocity = static_cast<float>((velocity * (velocity / (velocity * sqrt(2)))));
+		velocity = static_cast<float>((velocity * (velocity / (velocity * std::sqrt(2)))));
 	}
 
 	this->position.x += velocity * direction.x * deltaTime;
@@ -53,7 +58,7 @@ void Player::rotation(sf::RenderWindow const& window)
 	sf::Vector2f mousePositionInWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
 	sf::Vector2f lookDirection = mousePositionInWorld - this->position;
-	auto angle = static_cast<float>(atan2(lookDirection.y, lookDirection.x) * 180 / std::numbers::pi - 270);
+	auto angle = static_cast<float>(std::atan2(lookDirection.y, lookDirection.x) * 180 / std::numbers::pi - 270);
 
 	this->body.setRotation(angle);
 }

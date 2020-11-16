@@ -4,7 +4,7 @@
 
 #include "Chunk.h"
 
-#include "Terrain.h"
+#include "ChunkManager.h"
 
 #include "RandomNumberGenerator.h"
 
@@ -34,7 +34,7 @@ Chunk::Chunk(sf::Vector2f const& position, Terrain& terrain)
 	createStructure();
 }
 
-void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
+[[noreturn]] void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	for (auto const& i : this->blocks)
 	{

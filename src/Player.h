@@ -5,11 +5,9 @@
 #ifndef SIMPLERPG_PLAYER_H
 #define SIMPLERPG_PLAYER_H
 
-#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
-
-#include "Terrain.h"
 
 class Player
 {

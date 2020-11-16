@@ -1,4 +1,7 @@
+#include <SFML/Graphics/Texture.hpp>
+
 #include "Player.h"
+#include "ChunkManager.h"
 #include "Camera.h"
 
 int main()
@@ -8,14 +11,14 @@ int main()
 	window.setMouseCursorGrabbed(true);
 
 	sf::Texture playerTexture;
-	playerTexture.loadFromFile("../res/textures/test.png");
+	playerTexture.loadFromFile("../res/textures/Player.png");
 
 	Player player{{ 15, 15 }, playerTexture };
 
 	Camera camera{ player };
 	sf::Clock clock;
 
-	Terrain terrain;
+	Terrain::ChunkManager chunkManager;
 
 	while (window.isOpen())
 	{
@@ -44,9 +47,9 @@ int main()
 					camera.zoomIn();
 			}
 		}
-		terrain.generateTerrain(player);
+		chunkManager.generateTerrain(player);
 
-		camera.update(terrain, window);
+		camera.update(chunkManager, window);
 		player.update(deltaTime, window);
 
 		window.draw(camera);

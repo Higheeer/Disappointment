@@ -2,12 +2,14 @@
 // Created by Eryk on 21.10.2020.
 //
 
-#include "Terrain.h"
+#include "ChunkManager.h"
+
+#include <cmath>
 
 #include "Player.h"
 
-Terrain::Terrain()
-	: chunkCreationRadius{5}
+Terrain::ChunkManager::ChunkManager()
+		: chunkCreationRadius{ 5 }
 {
 
 }
@@ -15,9 +17,9 @@ Terrain::Terrain()
 bool Terrain::hasNeighbours(Index const& index) const
 {
 	return this->chunks.contains(std::make_pair(index.x - 1, index.y)) &&
-		this->chunks.contains(std::make_pair(index.x + 1, index.y)) &&
-		this->chunks.contains(std::make_pair(index.x, index.y - 1)) &&
-		this->chunks.contains(std::make_pair(index.x, index.y + 1));
+		   this->chunks.contains(std::make_pair(index.x + 1, index.y)) &&
+		   this->chunks.contains(std::make_pair(index.x, index.y - 1)) &&
+		   this->chunks.contains(std::make_pair(index.x, index.y + 1));
 }
 
 void Terrain::createNeighbours(Index const& index)

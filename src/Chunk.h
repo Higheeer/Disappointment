@@ -11,7 +11,7 @@
 
 #include "Constants.h"
 
-class Terrain;
+class ChunkManager;
 
 class Chunk : public sf::Drawable
 {
@@ -23,13 +23,13 @@ class Chunk : public sf::Drawable
 
 	void createHouse();
 
-	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+	[[noreturn]] void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
  private:
 	sf::Vector2f position;
 	std::array<sf::RectangleShape, ChunkDimensions::BlocksPerChunk> blocks;
 
-	Terrain* terrain;
+	ChunkManager* chunkManager;
 };
 
 #endif //SIMPLERPG_CHUNK_H

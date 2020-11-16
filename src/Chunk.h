@@ -22,7 +22,7 @@ public:
 	Chunk(sf::Vector2f const& position, Terrain::ChunkManager& chunkManager);
 
 private:
-	[[noreturn]] void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
 private:
 	sf::Vector2f position;

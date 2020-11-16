@@ -32,7 +32,7 @@ Chunk::Chunk(sf::Vector2f const& position, Terrain::ChunkManager& chunkManager)
 	}
 }
 
-[[noreturn]] void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
+void Chunk::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	for (auto const& i : this->blocks)
 	{

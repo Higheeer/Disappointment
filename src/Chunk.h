@@ -11,25 +11,24 @@
 
 #include "Constants.h"
 
-class ChunkManager;
+namespace Terrain
+{
+	class ChunkManager;
+}
 
 class Chunk : public sf::Drawable
 {
- public:
-	Chunk(sf::Vector2f const& position, Terrain& terrain);
+public:
+	Chunk(sf::Vector2f const& position, Terrain::ChunkManager& chunkManager);
 
- private:
-	void createStructure();
-
-	void createHouse();
-
+private:
 	[[noreturn]] void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
- private:
+private:
 	sf::Vector2f position;
 	std::array<sf::RectangleShape, ChunkDimensions::BlocksPerChunk> blocks;
 
-	ChunkManager* chunkManager;
+	Terrain::ChunkManager* chunkManager;
 };
 
 #endif //SIMPLERPG_CHUNK_H

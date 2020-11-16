@@ -19,7 +19,7 @@ Camera::Camera(Player& player)
 	this->playerOrigin.y = PlayerDimensions::Height / 2.0f;
 }
 
-void Camera::update(Terrain const& terrain, sf::RenderWindow& window)
+void Camera::update(Terrain::ChunkManager const& terrain, sf::RenderWindow& window)
 {
 	this->visibleChunks.clear();
 
@@ -29,9 +29,9 @@ void Camera::update(Terrain const& terrain, sf::RenderWindow& window)
 	window.setView(this->view);
 }
 
-void Camera::checkVisibleChunks(Terrain const& terrain)
+void Camera::checkVisibleChunks(Terrain::ChunkManager const& terrain)
 {
-	Index playerChunk{ Terrain::coordsToIndex(this->player->getPosition()) };
+	Terrain::Index playerChunk{ Terrain::coordsToIndex(this->player->getPosition()) };
 	for (int x = playerChunk.x - this->viewDistance; x <= playerChunk.x + this->viewDistance; x++)
 	{
 		for (int y = playerChunk.y - this->viewDistance; y <= playerChunk.y + this->viewDistance; y++)

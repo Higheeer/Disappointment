@@ -8,13 +8,15 @@
 
 #include "Player.h"
 
-Terrain::ChunkManager::ChunkManager()
+using namespace Terrain;
+
+ChunkManager::ChunkManager()
 		: chunkCreationRadius{ 5 }
 {
 
 }
 
-bool Terrain::hasNeighbours(Index const& index) const
+bool ChunkManager::hasNeighbours(Index const& index) const
 {
 	return this->chunks.contains(std::make_pair(index.x - 1, index.y)) &&
 		   this->chunks.contains(std::make_pair(index.x + 1, index.y)) &&
@@ -22,7 +24,7 @@ bool Terrain::hasNeighbours(Index const& index) const
 		   this->chunks.contains(std::make_pair(index.x, index.y + 1));
 }
 
-void Terrain::createNeighbours(Index const& index)
+void ChunkManager::createNeighbours(Index const& index)
 {
 	createChunk({ index.x - 1, index.y });
 	createChunk({ index.x + 1, index.y });
@@ -30,7 +32,7 @@ void Terrain::createNeighbours(Index const& index)
 	createChunk({ index.x, index.y + 1 });
 }
 
-void Terrain::createChunk(Index const& index)
+void ChunkManager::createChunk(Index const& index)
 {
 	if (this->chunks.contains(std::make_pair(index.x, index.y)))
 	{
@@ -41,12 +43,12 @@ void Terrain::createChunk(Index const& index)
 	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position, *this });
 }
 
-Chunk Terrain::getChunk(const Index& index) const
+Chunk ChunkManager::getChunk(const Index& index) const
 {
 	return this->chunks.at(std::make_pair(index.x, index.y));
 }
 
-void Terrain::generateTerrain(Player const& player)
+void ChunkManager::generateTerrain(Player const& player)
 {
 	Index const playerChunk{ coordsToIndex(player.getPosition()) };
 

@@ -14,8 +14,8 @@ struct ChunkDimensions
 };
 struct PlayerDimensions
 {
-	static float constexpr Width{ 28 };
-	static float constexpr Height{ 48 };
+	static float constexpr Width{ 32 };
+	static float constexpr Height{ 32 };
 };
 
 struct WindowSize

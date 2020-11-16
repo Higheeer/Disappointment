@@ -30,12 +30,6 @@ namespace Terrain
 
 		[[nodiscard]] Chunk getChunk(Index const& index) const;
 
-		[[nodiscard]] static Index coordsToIndex(float const& x, float const& y);
-
-		[[nodiscard]] static Index coordsToIndex(sf::Vector2f const& coords);
-
-		[[nodiscard]] static sf::Vector2f indexToCoords(Index const& index);
-
 	private:
 		void createChunk(Index const& index);
 
@@ -47,6 +41,12 @@ namespace Terrain
 		std::map<std::pair<int, int>, Chunk> chunks;
 		int const chunkCreationRadius;
 	};
+
+	[[nodiscard]] Index coordsToIndex(float const& x, float const& y);
+
+	[[nodiscard]] Index coordsToIndex(sf::Vector2f const& coords);
+
+	[[nodiscard]] sf::Vector2f indexToCoords(Index const& index);
 }
 
 

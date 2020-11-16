@@ -12,23 +12,28 @@
 
 #include "Constants.h"
 
+namespace Terrain
+{
+	class ChunkManager;
+}
+
 class Player;
-class Terrain;
+
 class Chunk;
 
 class Camera : public sf::Drawable
 {
- public:
+public:
 	explicit Camera(Player& player);
 
 	void zoomIn();
 
 	void zoomOut();
 
-	void update(Terrain const& terrain, sf::RenderWindow& window);
+	void update(Terrain::ChunkManager const& terrain, sf::RenderWindow& window);
 
- private:
-	void checkVisibleChunks(Terrain const& terrain);
+private:
+	void checkVisibleChunks(Terrain::ChunkManager const& terrain);
 
 	void addVisibleChunk(Chunk const& chunk);
 
@@ -36,7 +41,7 @@ class Camera : public sf::Drawable
 
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
- private:
+private:
 	std::vector<Chunk> visibleChunks;
 	int viewDistance;
 	sf::View view;

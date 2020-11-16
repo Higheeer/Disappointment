@@ -15,14 +15,13 @@ int main()
 
 	Player player{{ 15, 15 }, playerTexture };
 
-	Camera camera{ player };
 	sf::Clock clock;
 
 	Terrain::ChunkManager chunkManager;
 
 	while (window.isOpen())
 	{
-		window.clear();
+
 		float deltaTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
@@ -39,23 +38,14 @@ int main()
 				window.close();
 			}
 
-			if (event.type == sf::Event::MouseWheelScrolled)
-			{
-				if (event.mouseWheelScroll.delta > 0)
-					camera.zoomOut();
-				if (event.mouseWheelScroll.delta < 0)
-					camera.zoomIn();
-			}
-		}
-		chunkManager.generateTerrain(player);
 
-		camera.update(chunkManager, window);
+		}
+		player.input(event, deltaTime);
+		chunkManager.generateTerrain(player);
 		player.update(deltaTime, window);
 
-		window.draw(camera);
+		window.clear();
 		player.draw(window);
 		window.display();
 	}
-
-	return 0;
 }

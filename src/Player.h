@@ -9,26 +9,35 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "Camera.h"
+
 class Player
 {
- public:
+public:
 	Player(sf::Vector2f const& position, sf::Texture const& texture);
 
-	void move(float const& deltaTime);
+	void input(sf::Event const& event, float const& deltaTime);
 
 	void rotation(sf::RenderWindow const& window);
 
 	sf::Vector2f getPosition() const;
 
-	void update(float const& deltaTime, sf::RenderWindow const& window);
+	void update(float const& deltaTime, sf::RenderWindow& window);
 
 	void draw(sf::RenderTarget& window) const;
 
- private:
+private:
+	void move(float const& deltaTime);
+
+	void zoom(sf::Event const& event);
+
+private:
 	sf::Vector2f position;
 	sf::Vector2f size;
 
 	sf::RectangleShape body;
+
+	Camera camera;
 };
 
 #endif //SIMPLERPG_PLAYER_H

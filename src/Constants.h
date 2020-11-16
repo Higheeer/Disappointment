@@ -12,6 +12,7 @@ struct ChunkDimensions
 
 	static int constexpr BlocksPerChunk{ static_cast<int>((ChunkSize / BlockSize) * (ChunkSize / BlockSize)) };
 };
+
 struct PlayerDimensions
 {
 	static float constexpr Width{ 32 };

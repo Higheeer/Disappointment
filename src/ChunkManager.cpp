@@ -13,7 +13,7 @@ using namespace Terrain;
 ChunkManager::ChunkManager()
 		: chunkCreationRadius{ 5 }
 {
-
+	chunks.clear();
 }
 
 bool ChunkManager::hasNeighbours(Index const& index) const
@@ -40,7 +40,7 @@ void ChunkManager::createChunk(Index const& index)
 	}
 
 	sf::Vector2f position = indexToCoords(index);
-	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position});
+	this->chunks.emplace(std::make_pair(index.x, index.y), Chunk{ position });
 }
 
 Chunk ChunkManager::getChunk(const Index& index) const
@@ -48,13 +48,13 @@ Chunk ChunkManager::getChunk(const Index& index) const
 	return this->chunks.at(std::make_pair(index.x, index.y));
 }
 
-void ChunkManager::generateTerrain(Player const& player)
+void ChunkManager::generateChunks(sf::Vector2f const& position)
 {
-	Index const playerChunk{ coordsToIndex(player.getPosition()) };
+	Index const chunkId{ coordsToIndex(position) }; //TODO: Trzeba zmienic nazwe tej zmiennej 'chunkId' na coś innego
 
-	for (int x = playerChunk.x - this->chunkCreationRadius; x <= playerChunk.x + this->chunkCreationRadius; ++x)
+	for (int x = chunkId.x - this->chunkCreationRadius; x <= chunkId.x + this->chunkCreationRadius; ++x)
 	{
-		for (int y = playerChunk.y - this->chunkCreationRadius; y <= playerChunk.y + this->chunkCreationRadius; ++y)
+		for (int y = chunkId.y - this->chunkCreationRadius; y <= chunkId.y + this->chunkCreationRadius; ++y)
 		{
 			createChunk({ x, y });
 			if (!hasNeighbours({ x, y }))

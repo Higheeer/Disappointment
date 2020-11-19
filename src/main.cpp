@@ -1,12 +1,11 @@
 #include <SFML/Graphics/Texture.hpp>
 
-#include <iostream>
-
 #include <SFML/Window/Event.hpp>
 
 #include "Player.h"
 #include "ChunkManager.h"
 #include "Camera.h"
+#include "HUD.h"
 
 int main()
 {
@@ -23,12 +22,10 @@ int main()
 
 	Terrain::ChunkManager chunkManager;
 
-	std::cout<<sizeof(sf::RectangleShape )<<std::endl;
-	std::cout<< sizeof(Terrain::Chunk::BlockType)<<std::endl;
+	HUD hud(window);
 
 	while (window.isOpen())
 	{
-
 		float deltaTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
@@ -44,15 +41,15 @@ int main()
 			{
 				window.close();
 			}
-
-
 		}
 		player.input(event, deltaTime);
-		chunkManager.generateTerrain(player);
 		player.update(deltaTime, window);
+		hud.update(player.getPosition(), 32);
+		chunkManager.generateChunks(player.getPosition());
 
 		window.clear();
 		player.draw(window);
+		window.draw(hud);
 		window.display();
 	}
 }

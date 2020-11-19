@@ -16,12 +16,12 @@ namespace Terrain
 	class Chunk
 	{
 	public:
-		explicit Chunk(sf::Vector2f const& position);
-
 		enum class BlockType
 		{
 			Dirt, Stone, Sand
 		};
+
+		explicit Chunk(sf::Vector2f const& position);
 
 	private:
 		sf::Vector2f position;

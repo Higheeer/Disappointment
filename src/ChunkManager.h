@@ -24,9 +24,9 @@ namespace Terrain
 	class ChunkManager
 	{
 	public:
-		ChunkManager();
+		explicit ChunkManager();
 
-		void generateTerrain(Player const& player);
+		void generateChunks(sf::Vector2f const& position);
 
 		[[nodiscard]] Chunk getChunk(Index const& index) const;
 

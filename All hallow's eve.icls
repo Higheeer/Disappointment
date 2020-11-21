@@ -1,9 +1,9 @@
 <scheme name="All hallow's eve" version="142" parent_scheme="Darcula">
   <metaInfo>
-    <property name="created">2020-11-16T10:33:57</property>
+    <property name="created">2020-11-21T17:51:43</property>
     <property name="ide">CLion</property>
     <property name="ideVersion">2020.2.4.0.0</property>
-    <property name="modified">2020-11-16T10:34:09</property>
+    <property name="modified">2020-11-21T17:51:52</property>
     <property name="originalScheme">_@user_All hallow's eve</property>
   </metaInfo>
   <colors>
@@ -918,7 +918,7 @@
     </option>
     <option name="OC.BLOCK_COMMENT">
       <value>
-        <option name="FOREGROUND" value="c0ff00" />
+        <option name="FOREGROUND" value="ff0000" />
       </value>
     </option>
     <option name="OC.CPP_KEYWORD">
@@ -938,7 +938,7 @@
     </option>
     <option name="OC.LINE_COMMENT">
       <value>
-        <option name="FOREGROUND" value="9933cc" />
+        <option name="FOREGROUND" value="ff0000" />
       </value>
     </option>
     <option name="OC.LOCAL_VARIABLE">
@@ -1435,7 +1435,7 @@
     </option>
     <option name="TODO_DEFAULT_ATTRIBUTES">
       <value>
-        <option name="FOREGROUND" value="c7c7ff" />
+        <option name="FOREGROUND" value="19ba32" />
         <option name="FONT_TYPE" value="3" />
         <option name="ERROR_STRIPE_COLOR" value="ff" />
       </value>

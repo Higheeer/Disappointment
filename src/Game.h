@@ -9,13 +9,11 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
 
-namespace SimpleRPG
-{
-	class Player;
-}
 
 namespace SimpleRPG
 {
+	class Player;
+
 	class Game
 	{
 	public:

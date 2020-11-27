@@ -13,6 +13,7 @@
 
 #include "Constants.h"
 
+using namespace SimpleRPG;
 
 Player::Player(sf::Vector2f const& position,
 		sf::Texture const& texture)
@@ -22,12 +23,16 @@ Player::Player(sf::Vector2f const& position,
 	this->body.setSize(this->size);
 	this->body.setTexture(&texture);
 	this->body.setOrigin(PlayerDimensions::Width / 2.f, PlayerDimensions::Height / 2.f);
+
+	this->weapon.setPosition(this->position.x + 15.f, this->position.y);
+	this->weapon.setSize({6.f, 16.f});
+	this->weapon.setOrigin({3.f, 16.f});
+
 }
 
 void Player::input(sf::Event const& event, const float& deltaTime)
 {
 	move(deltaTime);
-	zoom(event);
 }
 
 void Player::move(float const& deltaTime)
@@ -61,17 +66,6 @@ void Player::move(float const& deltaTime)
 	this->position.y += velocity * direction.y * deltaTime;
 }
 
-void Player::zoom(sf::Event const& event)
-{
-	if (event.type == sf::Event::MouseWheelScrolled)
-	{
-		if (event.mouseWheelScroll.delta > 0)
-			camera.zoomOut();
-		if (event.mouseWheelScroll.delta < 0)
-			camera.zoomIn();
-	}
-}
-
 void Player::rotation(sf::RenderWindow const& window)
 {
 	sf::Vector2f mousePositionInWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -98,6 +92,7 @@ void Player::update(float const& deltaTime, sf::RenderWindow& window)
 void Player::draw(sf::RenderTarget& window) const
 {
 	window.draw(this->body);
+	window.draw(this->weapon,this->body.getTransform());
 }
 
 

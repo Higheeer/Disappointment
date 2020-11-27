@@ -21,14 +21,8 @@ struct PlayerDimensions
 
 struct WindowSize
 {
-	static unsigned int constexpr Width{ 1024 };
+	static unsigned int constexpr Width{ 1280 };
 	static unsigned int constexpr Height{ 960 };
-};
-
-struct ViewSize
-{
-	static float constexpr Max{ 2048 };
-	static float constexpr Min{ 300 };
 };
 
 #endif //SIMPLERPG_SRC_CONSTANTS_H_

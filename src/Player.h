@@ -11,33 +11,33 @@
 
 #include "Camera.h"
 
-class Player
+namespace SimpleRPG
 {
-public:
-	Player(sf::Vector2f const& position, sf::Texture const& texture);
+	class Player
+	{
+	public:
+		Player(sf::Vector2f const& position, sf::Texture const& texture);
 
-	void input(sf::Event const& event, float const& deltaTime);
+		void input(sf::Event const& event, float const& deltaTime);
 
-	void rotation(sf::RenderWindow const& window);
+		void rotation(sf::RenderWindow const& window);
 
-	sf::Vector2f getPosition() const;
+		sf::Vector2f getPosition() const;
 
-	void update(float const& deltaTime, sf::RenderWindow& window);
+		void update(float const& deltaTime, sf::RenderWindow& window);
 
-	void draw(sf::RenderTarget& window) const;
+		void draw(sf::RenderTarget& window) const;
 
-private:
-	void move(float const& deltaTime);
+	private:
+		void move(float const& deltaTime);
 
-	void zoom(sf::Event const& event);
+		sf::Vector2f position;
+		sf::Vector2f size;
 
-private:
-	sf::Vector2f position;
-	sf::Vector2f size;
+		sf::RectangleShape body;
+		sf::RectangleShape weapon;
 
-	sf::RectangleShape body;
-
-	Camera camera;
-};
-
+		Camera camera;
+	};
+}
 #endif //SIMPLERPG_PLAYER_H

@@ -9,8 +9,6 @@
 
 #include "Chunk.h"
 
-
-
 class Player;
 
 namespace Terrain
@@ -21,7 +19,7 @@ namespace Terrain
 		int const y;
 	};
 
-	class ChunkManager
+	class ChunkManager : public sf::Drawable
 	{
 	public:
 		explicit ChunkManager();
@@ -30,6 +28,8 @@ namespace Terrain
 
 		[[nodiscard]] Chunk getChunk(Index const& index) const;
 
+		[[nodiscard]] unsigned int amountOfChunks() const;
+
 	private:
 		void createChunk(Index const& index);
 
@@ -37,7 +37,8 @@ namespace Terrain
 
 		void createNeighbours(Index const& index);
 
-	private:
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 		std::map<std::pair<int, int>, Chunk> chunks;
 		int const chunkCreationRadius;
 	};

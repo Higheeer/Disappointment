@@ -4,6 +4,8 @@
 
 #include "Chunk.h"
 
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include "RandomNumberGenerator.h"
 
 using namespace Terrain;
@@ -14,11 +16,18 @@ Chunk::Chunk(sf::Vector2f const& position)
 	unsigned int row{ 0 }, column{ 0 };
 	unsigned int const blocksPerRow{ static_cast<unsigned int>(std::sqrt(ChunkDimensions::BlocksPerChunk)) };
 
-	for (auto& block : blocks)
+	blocks.setPrimitiveType(sf::Quads);
+
+	for (unsigned int i = 0; i < ChunkDimensions::BlocksPerChunk; ++i)
 	{
-		block = std::make_pair(BlockType::Dirt,
-				sf::Vector2f{ column * ChunkDimensions::BlockSize + this->position.x,
-							  row * ChunkDimensions::BlockSize + this->position.y });
+		blocks.append({{ column * ChunkDimensions::BlockSize + this->position.x,
+						 row * ChunkDimensions::BlockSize + this->position.y }, sf::Color::Green });
+		blocks.append({{ column * ChunkDimensions::BlockSize + this->position.x + ChunkDimensions::BlockSize,
+						 row * ChunkDimensions::BlockSize + this->position.y }, sf::Color::Green });
+		blocks.append({{ column * ChunkDimensions::BlockSize + this->position.x + ChunkDimensions::BlockSize,
+						 row * ChunkDimensions::BlockSize + this->position.y + ChunkDimensions::BlockSize }, sf::Color::Green });
+		blocks.append({{ column * ChunkDimensions::BlockSize + this->position.x,
+						 row * ChunkDimensions::BlockSize + this->position.y + ChunkDimensions::BlockSize}, sf::Color::Green });
 
 		if (++column == blocksPerRow)
 		{
@@ -27,6 +36,12 @@ Chunk::Chunk(sf::Vector2f const& position)
 		}
 	}
 }
+
+void Chunk::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(blocks);
+}
+
 
 
 

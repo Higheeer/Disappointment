@@ -5,13 +5,14 @@
 #include "ChunkManager.h"
 
 #include <cmath>
+#include <iostream>
 
 #include "Player.h"
 
 using namespace Terrain;
 
 ChunkManager::ChunkManager()
-		: chunkCreationRadius{ 5 }
+		: chunkCreationRadius{3}
 {
 	chunks.clear();
 }
@@ -62,6 +63,19 @@ void ChunkManager::generateChunks(sf::Vector2f const& position)
 				createNeighbours({ x, y });
 			}
 		}
+	}
+}
+
+unsigned int ChunkManager::amountOfChunks() const
+{
+	return this->chunks.size();
+}
+
+void ChunkManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	for(auto const& i: chunks)
+	{
+		target.draw(i.second);
 	}
 }
 

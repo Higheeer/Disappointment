@@ -5,12 +5,12 @@ if (CMAKE_COMPILER_IS_GNUCC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif ()
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 ")
 endif ()
 
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 add_executable(SimpleRPG
-        src/main.cpp src/Player.cpp src/Player.h src/ChunkManager.cpp src/ChunkManager.h src/Chunk.cpp src/Chunk.h src/Camera.cpp src/Camera.h src/Constants.h src/RandomNumberGenerator.cpp src/RandomNumberGenerator.h src/HUD.cpp src/HUD.h src/Game.cpp src/Game.h)
+        src/main.cpp src/Player.cpp src/Player.h src/Constants.h src/RandomNumberGenerator.cpp src/RandomNumberGenerator.h src/Game.cpp src/Game.h src/Weapon.h src/Bullet.h src/Rifle.cpp src/Rifle.h src/RifleAmmo.cpp src/RifleAmmo.h)
 target_link_libraries(SimpleRPG sfml-graphics sfml-audio)

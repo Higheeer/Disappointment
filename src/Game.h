@@ -9,11 +9,12 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
 
+#include <SFML/Graphics/Texture.hpp>
+
+#include "Player.h"
 
 namespace SimpleRPG
 {
-	class Player;
-
 	class Game
 	{
 	public:
@@ -32,6 +33,7 @@ namespace SimpleRPG
 		sf::Clock clock;
 		float deltaTime;
 
+		sf::Texture texture;
 		std::unique_ptr<Player> player;
 	};
 }

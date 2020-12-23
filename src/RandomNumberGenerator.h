@@ -7,19 +7,21 @@
 
 #include <random>
 
-class RandomNumberGenerator
+namespace SimpleRPG
 {
- public:
-	RandomNumberGenerator() = delete;
+	class RandomNumberGenerator
+	{
+	public:
+		RandomNumberGenerator() = delete;
 
- public:
-	[[nodiscard]] static unsigned int getNumber(unsigned int const& min, unsigned int const& max);
+	public:
+		[[nodiscard]] static unsigned int getNumber(unsigned int const& min, unsigned int const& max);
 
-	static void setSeed(unsigned int const& seed);
+		static void setSeed(unsigned int const& seed);
 
- private:
-	static std::random_device seedGenerator;
-	static std::mt19937_64 engine;
-};
-
+	private:
+		static std::random_device seedGenerator;
+		static std::mt19937_64 engine;
+	};
+}
 #endif //SIMPLERPG_SRC_RANDOMNUMBERGENERATOR_H_

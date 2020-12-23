@@ -7,37 +7,36 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Window/Event.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#include "Camera.h"
+class Weapon;
 
 namespace SimpleRPG
 {
-	class Player
+	class Player : public sf::Drawable
 	{
 	public:
 		Player(sf::Vector2f const& position, sf::Texture const& texture);
 
-		void input(sf::Event const& event, float const& deltaTime);
-
-		void rotation(sf::RenderWindow const& window);
-
-		sf::Vector2f getPosition() const;
-
+		void input(float const& deltaTime);
 		void update(float const& deltaTime, sf::RenderWindow& window);
 
-		void draw(sf::RenderTarget& window) const;
+	protected:
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		void move(float const& deltaTime);
+		void rotation(sf::RenderWindow const& window);
 
+	private:
 		sf::Vector2f position;
 		sf::Vector2f size;
 
 		sf::RectangleShape body;
-		sf::RectangleShape weapon;
+		std::unique_ptr<Weapon> weapon;
 
-		Camera camera;
 	};
 }
 #endif //SIMPLERPG_PLAYER_H

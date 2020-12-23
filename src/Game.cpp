@@ -14,6 +14,9 @@ Game::Game()
 {
 	window.setFramerateLimit(60);
 	window.setMouseCursorGrabbed(true);
+
+	texture.loadFromFile("res/textures/player.png");
+	player = std::make_unique<Player>(sf::Vector2f{128.0f, 128.0f}, texture);
 }
 
 void Game::run()
@@ -43,22 +46,25 @@ void Game::eventHandle()
 		{
 			window.close();
 		}
+
+
 	}
 }
 
 void Game::inputHandle()
 {
-
+	player->input(deltaTime);
 }
 
 void Game::update()
 {
-
+	player->update(deltaTime, window);
 }
 
 void Game::drawing()
 {
 	window.clear();
+	window.draw(*player);
 	window.display();
 }
 

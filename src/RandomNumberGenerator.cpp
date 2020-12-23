@@ -4,6 +4,8 @@
 
 #include "RandomNumberGenerator.h"
 
+using namespace SimpleRPG;
+
 std::random_device RandomNumberGenerator::seedGenerator{};
 std::mt19937_64 RandomNumberGenerator::engine{ RandomNumberGenerator::seedGenerator() };
 

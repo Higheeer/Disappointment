@@ -6,10 +6,6 @@
 
 #include <numbers>
 #include <cmath>
-#include <iostream>
-
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/Window/Mouse.hpp>
 
 #include "Constants.h"
 #include "Rifle.h"
@@ -30,6 +26,17 @@ Player::Player(sf::Vector2f const& position, sf::Texture const& texture)
 void Player::input(const float& deltaTime)
 {
 	move(deltaTime);
+}
+
+void Player::eventHandle(sf::Event const& event)
+{
+	if (event.type == sf::Event::MouseButtonPressed)
+	{
+		if (event.mouseButton.button == sf::Mouse::Left)
+		{
+			weapon->shoot();
+		}
+	}
 }
 
 void Player::move(float const& deltaTime)
@@ -75,8 +82,8 @@ void Player::rotation(sf::RenderWindow const& window)
 
 void Player::update(float const& deltaTime, sf::RenderWindow& window)
 {
-	move(deltaTime);
 	rotation(window);
+	weapon->update(deltaTime, position, window);
 	body.setPosition(position.x, position.y);
 }
 
@@ -85,6 +92,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(body);
 	target.draw(*weapon, body.getTransform());
 }
+
 
 
 

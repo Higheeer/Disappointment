@@ -21,6 +21,7 @@ namespace SimpleRPG
 		Player(sf::Vector2f const& position, sf::Texture const& texture);
 
 		void input(float const& deltaTime);
+		void eventHandle(sf::Event const& event);
 		void update(float const& deltaTime, sf::RenderWindow& window);
 
 	protected:

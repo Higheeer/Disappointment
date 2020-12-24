@@ -16,10 +16,9 @@ class Weapon: public sf::Drawable
 public:
 	virtual ~Weapon() = default;
 
-protected:
 	virtual void shoot() = 0;
 	virtual void reload() = 0;
-	virtual void update(float const& deltaTime) = 0;
+	virtual void update(float const& deltaTime, sf::Vector2f const& position, sf::RenderWindow const& window) = 0;
 };
 
 #endif //SIMPLERPG_WEAPON_H

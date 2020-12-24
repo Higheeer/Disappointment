@@ -46,8 +46,7 @@ void Game::eventHandle()
 		{
 			window.close();
 		}
-
-
+		player->eventHandle(event);
 	}
 }
 

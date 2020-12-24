@@ -8,25 +8,26 @@
 #include <string>
 
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Weapon.h"
 
 class Rifle: public Weapon
 {
 public:
-	explicit Rifle(std::string const& name);
+	explicit Rifle(std::string name);
 
 	void shoot() override;
 	void reload() override;
-	void update(float const& deltaTime) override;
+	void update(float const& deltaTime, sf::Vector2f const& position, sf::RenderWindow const& window) override;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
 	std::string name;
 	unsigned int magazineSize;
+	unsigned int bulletsInMagazine{20};
 	sf::RectangleShape body;
-	std::vector<std::unique_ptr<Bullet>> activeBullets;
 };
 
 

@@ -16,7 +16,7 @@ Game::Game()
 	window.setMouseCursorGrabbed(true);
 
 	texture.loadFromFile("res/textures/player.png");
-	player = std::make_unique<Player>(sf::Vector2f{128.0f, 128.0f}, texture);
+	player = std::make_unique<Player>(sf::Vector2f{128.0f, 128.0f}, texture, window);
 }
 
 void Game::run()
@@ -46,7 +46,6 @@ void Game::eventHandle()
 		{
 			window.close();
 		}
-		player->eventHandle(event);
 	}
 }
 
@@ -57,7 +56,7 @@ void Game::inputHandle()
 
 void Game::update()
 {
-	player->update(deltaTime, window);
+	player->update(deltaTime);
 }
 
 void Game::drawing()

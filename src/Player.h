@@ -18,26 +18,26 @@ namespace SimpleRPG
 	class Player : public sf::Drawable
 	{
 	public:
-		Player(sf::Vector2f const& position, sf::Texture const& texture);
+		Player(sf::Vector2f const& position, sf::Texture const& texture, sf::RenderWindow& window);
 
 		void input(float const& deltaTime);
-		void eventHandle(sf::Event const& event);
-		void update(float const& deltaTime, sf::RenderWindow& window);
+		void update(float const& deltaTime);
 
 	protected:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		void move(float const& deltaTime);
-		void rotation(sf::RenderWindow const& window);
+		void rotation();
 
 	private:
 		sf::Vector2f position;
 		sf::Vector2f size;
 
+		sf::RenderWindow& window;
+
 		sf::RectangleShape body;
 		std::unique_ptr<Weapon> weapon;
-
 	};
 }
 #endif //SIMPLERPG_PLAYER_H

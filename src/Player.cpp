@@ -12,30 +12,27 @@
 
 using namespace SimpleRPG;
 
-Player::Player(sf::Vector2f const& position, sf::Texture const& texture)
-		: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }
+Player::Player(sf::Vector2f const& position, sf::Texture const& texture, sf::RenderWindow& window)
+		: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }, window{window}
 {
 	body.setPosition(this->position);
 	body.setSize(size);
 	body.setTexture(&texture);
 	body.setOrigin(size.x / 2.f, size.y / 2.f);
 
-	weapon = std::make_unique<Rifle>("Ak-47");
+	weapon = std::make_unique<Rifle>("Ak-47", window);
 }
 
 void Player::input(const float& deltaTime)
 {
 	move(deltaTime);
-}
-
-void Player::eventHandle(sf::Event const& event)
-{
-	if (event.type == sf::Event::MouseButtonPressed)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (event.mouseButton.button == sf::Mouse::Left)
-		{
-			weapon->shoot();
-		}
+		weapon->shoot();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	{
+		weapon->reload();
 	}
 }
 
@@ -60,7 +57,7 @@ void Player::move(float const& deltaTime)
 		direction.x = 1;
 	}
 
-	float velocity{ 100.f };
+	float velocity{ 200.f };
 	if (direction.x != 0 && direction.y != 0)
 	{
 		velocity = static_cast<float>((velocity * (velocity / (velocity * std::sqrt(2)))));
@@ -70,7 +67,7 @@ void Player::move(float const& deltaTime)
 	position.y += velocity * direction.y * deltaTime;
 }
 
-void Player::rotation(sf::RenderWindow const& window)
+void Player::rotation()
 {
 	sf::Vector2f mousePositionInWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
@@ -80,17 +77,17 @@ void Player::rotation(sf::RenderWindow const& window)
 	body.setRotation(angle);
 }
 
-void Player::update(float const& deltaTime, sf::RenderWindow& window)
+void Player::update(float const& deltaTime)
 {
-	rotation(window);
-	weapon->update(deltaTime, position, window);
+	rotation();
+	weapon->update(deltaTime, body);
 	body.setPosition(position.x, position.y);
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(body);
 	target.draw(*weapon, body.getTransform());
+	target.draw(body);
 }
 
 

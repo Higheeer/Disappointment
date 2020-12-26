@@ -11,23 +11,29 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Weapon.h"
+#include "Bullet.h"
 
 class Rifle: public Weapon
 {
 public:
-	explicit Rifle(std::string name);
+	explicit Rifle(std::string name, sf::RenderWindow& window);
 
 	void shoot() override;
 	void reload() override;
-	void update(float const& deltaTime, sf::Vector2f const& position, sf::RenderWindow const& window) override;
+	void update(float const& deltaTime, sf::RectangleShape const& playerBody) override;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
+	sf::RenderWindow& window;
+
 	std::string name;
 	unsigned int magazineSize;
-	unsigned int bulletsInMagazine{20};
+	unsigned int bulletsInMagazine;
 	sf::RectangleShape body;
+	sf::Vector2f position;
+
+	std::vector<Bullet> activeBullets;
 };
 
 

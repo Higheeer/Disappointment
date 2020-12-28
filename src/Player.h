@@ -22,6 +22,7 @@ namespace SimpleRPG
 
 		void input(float const& deltaTime);
 		void update(float const& deltaTime);
+		sf::FloatRect getBody() const;
 
 	protected:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -39,5 +40,7 @@ namespace SimpleRPG
 		sf::RectangleShape body;
 		std::unique_ptr<Weapon> weapon;
 	};
+
+	float normalize(float value);
 }
 #endif //SIMPLERPG_PLAYER_H

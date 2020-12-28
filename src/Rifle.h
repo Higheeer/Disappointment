@@ -13,21 +13,20 @@
 #include "Weapon.h"
 #include "Bullet.h"
 
-class Rifle: public Weapon
+class Rifle : public Weapon
 {
 public:
-	explicit Rifle(std::string name, sf::RenderWindow& window);
+	explicit Rifle(sf::RenderWindow& window);
 
 	void shoot() override;
 	void reload() override;
-	void update(float const& deltaTime, sf::RectangleShape const& playerBody) override;
+	void update(float const& deltaTime, sf::Vector2f const& playerPosition) override;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
 	sf::RenderWindow& window;
 
-	std::string name;
 	unsigned int magazineSize;
 	unsigned int bulletsInMagazine;
 	sf::RectangleShape body;

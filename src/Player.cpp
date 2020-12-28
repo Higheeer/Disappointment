@@ -20,7 +20,7 @@ Player::Player(sf::Vector2f const& position, sf::Texture const& texture, sf::Ren
 	body.setTexture(&texture);
 	body.setOrigin(size.x / 2.f, size.y / 2.f);
 
-	weapon = std::make_unique<Rifle>("Ak-47", window);
+	weapon = std::make_unique<Rifle>(window);
 }
 
 void Player::input(const float& deltaTime)
@@ -60,11 +60,18 @@ void Player::move(float const& deltaTime)
 	float velocity{ 200.f };
 	if (direction.x != 0 && direction.y != 0)
 	{
-		velocity = static_cast<float>((velocity * (velocity / (velocity * std::sqrt(2)))));
+		velocity = normalize(velocity);
 	}
 
 	position.x += velocity * direction.x * deltaTime;
 	position.y += velocity * direction.y * deltaTime;
+}
+
+void Player::update(float const& deltaTime)
+{
+	rotation();
+	weapon->update(deltaTime, position);
+	body.setPosition(position.x, position.y);
 }
 
 void Player::rotation()
@@ -77,11 +84,9 @@ void Player::rotation()
 	body.setRotation(angle);
 }
 
-void Player::update(float const& deltaTime)
+sf::FloatRect Player::getBody() const
 {
-	rotation();
-	weapon->update(deltaTime, body);
-	body.setPosition(position.x, position.y);
+	return body.getGlobalBounds();
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -90,6 +95,10 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(body);
 }
 
+float SimpleRPG::normalize(float value)
+{
+	return float(value * (value / (value * std::sqrt(2))));
+}
 
 
 

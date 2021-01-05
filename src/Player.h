@@ -11,34 +11,40 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Vector2.hpp>
 
-class Weapon;
-
 namespace SimpleRPG
 {
 	class Player : public sf::Drawable
 	{
 	public:
+		struct Attributes
+		{
+			short int max_health;
+			short int health;
+		};
+
 		Player(sf::Vector2f const& position, sf::Texture const& texture, sf::RenderWindow& window);
 
-		void input(float const& deltaTime);
-		void update(float const& deltaTime);
-		sf::FloatRect getBody() const;
+		void input(float delta_time);
+		void event(sf::Event const& event);
+		void update(float delta_time);
 
-	protected:
+		void hit(unsigned short int value);
+		bool isDead() const;
+
+		sf::FloatRect bodyBounds() const;
+		std::string health() const;
+
+	private:
+		void move(float delta_time);
+		void rotation();
+
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
-		void move(float const& deltaTime);
-		void rotation();
-
-	private:
-		sf::Vector2f position;
-		sf::Vector2f size;
-
-		sf::RenderWindow& window;
+		Attributes attribs;
 
 		sf::RectangleShape body;
-		std::unique_ptr<Weapon> weapon;
+		sf::RenderWindow& window;
 	};
 
 	float normalize(float value);

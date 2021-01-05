@@ -2,34 +2,37 @@
 // Created by eryk on 27.11.2020.
 //
 
+#include <iostream>
 #include "Game.h"
 
-#include "Constants.h"
-#include "Player.h"
+#include "Utilities/Constants.h"
 
 using namespace SimpleRPG;
 
 Game::Game()
-		: window{sf::VideoMode(WindowSize::Width, WindowSize::Height), "Simple RPG"}, event{}, clock{}, deltaTime{}
+		: window{ sf::VideoMode(WindowSize::width, WindowSize::height), "Simple RPG" }, event{}, clock{}, delta_time{}
 {
 	window.setFramerateLimit(60);
 	window.setMouseCursorGrabbed(true);
 
-	texture.loadFromFile("res/textures/player.png");
-	player = std::make_unique<Player>(sf::Vector2f{128.0f, 128.0f}, texture, window);
+	player = std::make_unique<Player>(sf::Vector2f{ 128.0f, 128.0f }, texture, window);
+	enemies = std::make_unique<EnemySupervisor>(*player, 15);
+
+
+	hud = std::make_unique<HUD>();
 }
 
 void Game::run()
 {
 	while (window.isOpen())
 	{
-		deltaTime = clock.getElapsedTime().asSeconds();
+		delta_time = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
 		eventHandle();
 		inputHandle();
 		update();
-		drawing();
+		draw();
 	}
 }
 
@@ -46,23 +49,29 @@ void Game::eventHandle()
 		{
 			window.close();
 		}
+
+		player->event(event);
 	}
 }
 
 void Game::inputHandle()
 {
-	player->input(deltaTime);
+	player->input(delta_time);
 }
 
 void Game::update()
 {
-	player->update(deltaTime);
+	player->update(delta_time);
+	enemies->update(delta_time);
+	hud->update(*player, window);
 }
 
-void Game::drawing()
+void Game::draw()
 {
 	window.clear();
 	window.draw(*player);
+	window.draw(*enemies);
+	window.draw(*hud);
 	window.display();
 }
 

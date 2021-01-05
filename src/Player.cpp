@@ -7,36 +7,25 @@
 #include <numbers>
 #include <cmath>
 
-#include "Constants.h"
-#include "Rifle.h"
+#include "Utilities/Constants.h"
 
 using namespace SimpleRPG;
 
 Player::Player(sf::Vector2f const& position, sf::Texture const& texture, sf::RenderWindow& window)
-		: position{ position }, size{ PlayerDimensions::Width, PlayerDimensions::Height }, window{window}
+		: attribs{ 874, attribs.max_health }, window{ window }
 {
-	body.setPosition(this->position);
-	body.setSize(size);
+	body.setPosition(position);
+	body.setSize({ PlayerDimensions::width, PlayerDimensions::height });
 	body.setTexture(&texture);
-	body.setOrigin(size.x / 2.f, size.y / 2.f);
-
-	weapon = std::make_unique<Rifle>(window);
+	body.setOrigin({ PlayerDimensions::origin.first, PlayerDimensions::origin.second });
 }
 
-void Player::input(const float& deltaTime)
+void Player::input(float delta_time)
 {
-	move(deltaTime);
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		weapon->shoot();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-	{
-		weapon->reload();
-	}
+	move(delta_time);
 }
 
-void Player::move(float const& deltaTime)
+void Player::move(float delta_time)
 {
 	sf::Vector2f direction{};
 
@@ -63,35 +52,55 @@ void Player::move(float const& deltaTime)
 		velocity = normalize(velocity);
 	}
 
-	position.x += velocity * direction.x * deltaTime;
-	position.y += velocity * direction.y * deltaTime;
+	sf::Vector2f move_offset;
+	move_offset.x += velocity * direction.x * delta_time;
+	move_offset.y += velocity * direction.y * delta_time;
+
+	body.move(move_offset);
 }
 
-void Player::update(float const& deltaTime)
+void Player::update(float delta_time)
 {
 	rotation();
-	weapon->update(deltaTime, position);
-	body.setPosition(position.x, position.y);
 }
 
 void Player::rotation()
 {
 	sf::Vector2f mousePositionInWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-	sf::Vector2f lookDirection = mousePositionInWorld - position;
+	sf::Vector2f lookDirection = mousePositionInWorld - body.getPosition();
 	auto angle = static_cast<float>(std::atan2(lookDirection.y, lookDirection.x) * 180 / std::numbers::pi - 270);
 
 	body.setRotation(angle);
 }
 
-sf::FloatRect Player::getBody() const
+sf::FloatRect Player::bodyBounds() const
 {
 	return body.getGlobalBounds();
 }
 
+void Player::event(sf::Event const& event)
+{
+
+}
+
+std::string Player::health() const
+{
+	return std::to_string(attribs.health * 100 / attribs.max_health) + '%';
+}
+
+void Player::hit(unsigned short int value)
+{
+	attribs.health -= value;
+}
+
+bool Player::isDead() const
+{
+	return attribs.health < 0;
+}
+
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(*weapon, body.getTransform());
 	target.draw(body);
 }
 

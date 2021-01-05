@@ -12,5 +12,12 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 add_executable(SimpleRPG
-        src/main.cpp src/Player.cpp src/Player.h src/Constants.h src/RandomNumberGenerator.cpp src/RandomNumberGenerator.h src/Game.cpp src/Game.h src/Weapon.h src/Rifle.cpp src/Rifle.h src/Bullet.cpp src/Bullet.h)
+        src/main.cpp
+        src/Player.cpp src/Player.h
+        src/Utilities/Constants.h
+        src/Utilities/RandomNumberGenerator.cpp src/Utilities/RandomNumberGenerator.h
+        src/Game.cpp src/Game.h
+        src/Weapons/Weapon.h src/Weapons/Rifle.cpp src/Weapons/Rifle.h src/Weapons/Bullet.cpp src/Weapons/Bullet.h
+        src/Enemy.cpp src/Enemy.h
+        src/HUD.cpp src/HUD.h src/EnemySupervisor.cpp src/EnemySupervisor.h)
 target_link_libraries(SimpleRPG sfml-graphics sfml-audio)

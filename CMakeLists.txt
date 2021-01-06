@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(SimpleRPG)
+project(Disappointment)
 
 if (CMAKE_COMPILER_IS_GNUCC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
@@ -11,7 +11,7 @@ endif ()
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
-add_executable(SimpleRPG
+add_executable(Disappointment
         src/main.cpp
         src/Player.cpp src/Player.h
         src/Utilities/Constants.h
@@ -20,4 +20,4 @@ add_executable(SimpleRPG
         src/Weapons/Weapon.h src/Weapons/Rifle.cpp src/Weapons/Rifle.h src/Weapons/Bullet.cpp src/Weapons/Bullet.h
         src/Enemy.cpp src/Enemy.h
         src/HUD.cpp src/HUD.h src/EnemySupervisor.cpp src/EnemySupervisor.h)
-target_link_libraries(SimpleRPG sfml-graphics sfml-audio)
+target_link_libraries(Disappointment sfml-graphics sfml-audio)

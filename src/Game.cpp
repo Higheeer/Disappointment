@@ -7,7 +7,7 @@
 
 #include "Utilities/Constants.h"
 
-using namespace SimpleRPG;
+using namespace Disappointment;
 
 Game::Game()
 		: window{ sf::VideoMode(WindowSize::width, WindowSize::height), "Simple RPG" }, event{}, clock{}, delta_time{}
@@ -16,8 +16,8 @@ Game::Game()
 	window.setMouseCursorGrabbed(true);
 
 	player = std::make_unique<Player>(sf::Vector2f{ 128.0f, 128.0f }, texture, window);
-	enemies = std::make_unique<EnemySupervisor>(*player, 15);
 
+	enemies = std::make_unique<EnemySupervisor>(*player);
 
 	hud = std::make_unique<HUD>();
 }
@@ -61,7 +61,7 @@ void Game::inputHandle()
 
 void Game::update()
 {
-	player->update(delta_time);
+	player->update(delta_time, enemies->getEnemies());
 	enemies->update(delta_time);
 	hud->update(*player, window);
 }

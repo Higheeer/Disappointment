@@ -2,14 +2,14 @@
 // Created by Eryk on 04.01.2021.
 //
 
-#ifndef SIMPLERPG_HUD_H
-#define SIMPLERPG_HUD_H
+#ifndef DISAPPOINTMENT_HUD_H
+#define DISAPPOINTMENT_HUD_H
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 
-namespace SimpleRPG
+namespace Disappointment
 {
 	class Player;
 
@@ -31,4 +31,4 @@ namespace SimpleRPG
 }
 
 
-#endif //SIMPLERPG_HUD_H
+#endif //DISAPPOINTMENT_HUD_H

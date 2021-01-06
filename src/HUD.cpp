@@ -8,14 +8,14 @@
 
 #include "Player.h"
 
-using namespace SimpleRPG;
+using namespace Disappointment;
 
 HUD::HUD()
 {
-	font.loadFromFile("res/fonts/hud.ttf");
+	font.loadFromFile("res/fonts/HUD.ttf");
 
 	text.setFont(font);
-	text.setCharacterSize(42);
+	text.setCharacterSize(32);
 }
 
 void HUD::update(Player const& player, sf::RenderTarget const& target)
@@ -23,7 +23,7 @@ void HUD::update(Player const& player, sf::RenderTarget const& target)
 	sf::Vector2f converted_screen_coords = target.mapPixelToCoords({0,0});
 
 	text.setString(
-			"Health: " + player.health() + '\n' +
+			"Health: " + player.healthInPrecentage() + '\n' +
 			"Position: " + std::to_string(static_cast<int>(player.bodyBounds().left)) + " : " + std::to_string(static_cast<int>(player.bodyBounds().top))
 			);
 

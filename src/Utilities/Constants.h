@@ -2,8 +2,8 @@
 // Created by Eryk on 22.10.2020.
 //
 
-#ifndef SIMPLERPG_SRC_CONSTANTS_H_
-#define SIMPLERPG_SRC_CONSTANTS_H_
+#ifndef DISAPPOINTMENT_SRC_CONSTANTS_H_
+#define DISAPPOINTMENT_SRC_CONSTANTS_H_
 
 struct ChunkDimensions
 {
@@ -26,4 +26,4 @@ struct WindowSize
 	static unsigned int constexpr height{ 960 };
 };
 
-#endif //SIMPLERPG_SRC_CONSTANTS_H_
+#endif //DISAPPOINTMENT_SRC_CONSTANTS_H_

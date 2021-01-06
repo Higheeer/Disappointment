@@ -2,7 +2,7 @@
 
 int main()
 {
-	SimpleRPG::Game game;
+	Disappointment::Game game;
 	game.run();
 }
 

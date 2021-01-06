@@ -2,21 +2,24 @@
 // Created by Eryk on 04.01.2021.
 //
 
-#ifndef SIMPLERPG_ENEMYSUPERVISOR_H
-#define SIMPLERPG_ENEMYSUPERVISOR_H
+#ifndef DISAPPOINTMENT_ENEMYSUPERVISOR_H
+#define DISAPPOINTMENT_ENEMYSUPERVISOR_H
+
+#include <SFML/Graphics/Texture.hpp>
 
 #include "Enemy.h"
 
-namespace SimpleRPG
+namespace Disappointment
 {
 	class Player;
 
 	class EnemySupervisor : public sf::Drawable
 	{
 	public:
-		explicit EnemySupervisor(Player& player, unsigned short int amount_of_enemies);
+		explicit EnemySupervisor(Player& player);
 
 		void update(float delta_time);
+		std::vector<Enemy>& getEnemies();
 
 	private:
 		void createEnemy();
@@ -27,7 +30,9 @@ namespace SimpleRPG
 	private:
 		std::vector<Enemy> enemies;
 		Player* player;
+
+		sf::Texture texture;
 	};
 }
 
-#endif //SIMPLERPG_ENEMYSUPERVISOR_H
+#endif //Disappointment_ENEMYSUPERVISOR_H

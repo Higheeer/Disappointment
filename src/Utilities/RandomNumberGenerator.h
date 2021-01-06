@@ -2,12 +2,12 @@
 // Created by Eryk on 03.11.2020.
 //
 
-#ifndef SIMPLERPG_SRC_RANDOMNUMBERGENERATOR_H_
-#define SIMPLERPG_SRC_RANDOMNUMBERGENERATOR_H_
+#ifndef DISAPPOINTMENT_SRC_RANDOMNUMBERGENERATOR_H_
+#define DISAPPOINTMENT_SRC_RANDOMNUMBERGENERATOR_H_
 
 #include <random>
 
-namespace SimpleRPG
+namespace Disappointment
 {
 	class RandomNumberGenerator
 	{
@@ -24,4 +24,4 @@ namespace SimpleRPG
 		static std::mt19937_64 engine;
 	};
 }
-#endif //SIMPLERPG_SRC_RANDOMNUMBERGENERATOR_H_
+#endif //DISAPPOINTMENT_SRC_RANDOMNUMBERGENERATOR_H_

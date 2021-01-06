@@ -2,8 +2,8 @@
 // Created by eryk on 27.11.2020.
 //
 
-#ifndef SIMPLERPG_GAME_H
-#define SIMPLERPG_GAME_H
+#ifndef DISAPPOINTMENT_GAME_H
+#define DISAPPOINTMENT_GAME_H
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
@@ -15,7 +15,7 @@
 #include "EnemySupervisor.h"
 #include "HUD.h"
 
-namespace SimpleRPG
+namespace Disappointment
 {
 	class Game
 	{
@@ -43,4 +43,4 @@ namespace SimpleRPG
 	};
 }
 
-#endif //SIMPLERPG_GAME_H
+#endif //DISAPPOINTMENT_GAME_H

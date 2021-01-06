@@ -8,23 +8,26 @@
 #include "Utilities/RandomNumberGenerator.h"
 
 
-using namespace SimpleRPG;
+using namespace Disappointment;
 
-EnemySupervisor::EnemySupervisor(Player& player, unsigned short int amount_of_enemies)
+EnemySupervisor::EnemySupervisor(Player& player)
 		: player(&player)
 {
-	enemies.reserve(amount_of_enemies);
+	enemies.reserve(50);
 
-	for(auto i = 0; i < amount_of_enemies; ++i)
+	texture.loadFromFile("res/textures/Zombie.png");
+
+	for (auto i = 0; i < 50; ++i)
 	{
 		createEnemy();
 	}
-
 }
 
 void EnemySupervisor::createEnemy()
 {
-	enemies.emplace_back(sf::Vector2f(RandomNumberGenerator::getNumber(25,500),RandomNumberGenerator::getNumber(25,500)));
+	enemies.emplace_back(
+			sf::Vector2f(RandomNumberGenerator::getNumber(25, 1500), RandomNumberGenerator::getNumber(25, 500)),
+			texture);
 }
 
 void EnemySupervisor::removeAll()
@@ -34,16 +37,27 @@ void EnemySupervisor::removeAll()
 
 void EnemySupervisor::update(float delta_time)
 {
-	for(auto& i: enemies)
+	for (auto& i: enemies)
 	{
 		i.update(delta_time, *player);
 	}
+
+	enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
+			[](Enemy const& b)
+			{ return b.isDead(); }), enemies.end());
+}
+
+std::vector<Enemy>& EnemySupervisor::getEnemies()
+{
+	return enemies;
 }
 
 void EnemySupervisor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for(auto const& i : enemies)
+	for (auto const& i : enemies)
 	{
 		target.draw(i);
 	}
 }
+
+

@@ -6,10 +6,10 @@
 
 #include "../Enemy.h"
 
-using namespace SimpleRPG;
+using namespace Disappointment;
 
 Bullet::Bullet(sf::Vector2f const& position, sf::Vector2f const& direction, float angle)
-		: direction{ direction }, lifeTime{ 0.f }
+		: direction{ direction }, life_time{ 0.f }, should_destroy{false}
 {
 	setPosition({ position.x, position.y });
 	setRotation(angle);
@@ -17,13 +17,22 @@ Bullet::Bullet(sf::Vector2f const& position, sf::Vector2f const& direction, floa
 	setFillColor(sf::Color::Red);
 }
 
-void Bullet::update(float deltaTime)
+void Bullet::update(float delta_time, std::vector<Enemy>& enemy)
 {
-	lifeTime += deltaTime;
+	life_time += delta_time;
 	move(direction);
+	for(auto& i: enemy)
+	{
+		if(getGlobalBounds().intersects(i.bodyBounds()))
+		{
+			should_destroy = true;
+			i.hit(5);
+			break;
+		}
+	}
 }
 
 bool Bullet::shouldBeDestroyed() const
 {
-	return lifeTime >= 2.f;
+	return life_time >= 2.f || should_destroy;
 }

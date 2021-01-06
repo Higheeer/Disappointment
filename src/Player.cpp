@@ -9,20 +9,35 @@
 
 #include "Utilities/Constants.h"
 
-using namespace SimpleRPG;
+#include "Enemy.h"
+#include "Weapons/Rifle.h"
+
+using namespace Disappointment;
 
 Player::Player(sf::Vector2f const& position, sf::Texture const& texture, sf::RenderWindow& window)
-		: attribs{ 874, attribs.max_health }, window{ window }
+		: max_health{ 250 }, health{ max_health }, window{ window }
 {
 	body.setPosition(position);
 	body.setSize({ PlayerDimensions::width, PlayerDimensions::height });
 	body.setTexture(&texture);
 	body.setOrigin({ PlayerDimensions::origin.first, PlayerDimensions::origin.second });
+
+	weapon = std::make_unique<Rifle>(window);
 }
 
 void Player::input(float delta_time)
 {
 	move(delta_time);
+
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		weapon->shoot(body.getPosition());
+	}
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	{
+		weapon->reload();
+	}
 }
 
 void Player::move(float delta_time)
@@ -59,12 +74,13 @@ void Player::move(float delta_time)
 	body.move(move_offset);
 }
 
-void Player::update(float delta_time)
+void Player::update(float delta_time, std::vector<Enemy>& enemy)
 {
-	rotation();
+	rotateToMouse();
+	weapon->update(delta_time, enemy);
 }
 
-void Player::rotation()
+void Player::rotateToMouse()
 {
 	sf::Vector2f mousePositionInWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
@@ -84,27 +100,28 @@ void Player::event(sf::Event const& event)
 
 }
 
-std::string Player::health() const
+std::string Player::healthInPrecentage() const
 {
-	return std::to_string(attribs.health * 100 / attribs.max_health) + '%';
+	return std::to_string(health * 100 / max_health) + '%';
 }
 
 void Player::hit(unsigned short int value)
 {
-	attribs.health -= value;
+	health -= value;
 }
 
 bool Player::isDead() const
 {
-	return attribs.health < 0;
+	return health < 0;
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(body);
+	target.draw(*weapon,body.getTransform());
 }
 
-float SimpleRPG::normalize(float value)
+float Disappointment::normalize(float value)
 {
 	return float(value * (value / (value * std::sqrt(2))));
 }

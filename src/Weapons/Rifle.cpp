@@ -12,7 +12,7 @@
 
 #include "../Enemy.h"
 
-using namespace SimpleRPG;
+using namespace Disappointment;
 
 Rifle::Rifle(sf::RenderWindow& window)
 		: window{ window }, magazineSize{ 100 }, bulletsInMagazine{ magazineSize }
@@ -27,15 +27,15 @@ void Rifle::reload()
 	bulletsInMagazine = magazineSize;
 }
 
-void Rifle::update(float const& deltaTime)
+void Rifle::update(float delta_time, std::vector<Enemy>& enemy)
 {
 	for (auto& i : activeBullets)
 	{
-		i.update(deltaTime);
+		i.update(delta_time, enemy);
 	}
 
 	activeBullets.erase(std::remove_if(activeBullets.begin(), activeBullets.end(),
-			[](Bullet b)
+			[](Bullet const& b)
 			{ return b.shouldBeDestroyed(); }), activeBullets.end());
 }
 

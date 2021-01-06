@@ -2,8 +2,8 @@
 // Created by Eryk on 23.12.2020.
 //
 
-#ifndef SIMPLERPG_RIFLE_H
-#define SIMPLERPG_RIFLE_H
+#ifndef DISAPPOINTMENT_RIFLE_H
+#define DISAPPOINTMENT_RIFLE_H
 
 #include <string>
 
@@ -13,16 +13,16 @@
 #include "Weapon.h"
 #include "Bullet.h"
 
-namespace SimpleRPG
+namespace Disappointment
 {
 	class Rifle : public Weapon
 	{
 	public:
 		explicit Rifle(sf::RenderWindow& window);
 
-		void shoot(sf::Vector2f const& playerPosition) override;
+		void shoot(sf::Vector2f const& player_position) override;
 		void reload() override;
-		void update(float const& deltaTime) override;
+		void update(float delta_time, std::vector<Enemy>& enemy) override;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -37,4 +37,4 @@ namespace SimpleRPG
 	};
 }
 
-#endif //SIMPLERPG_RIFLE_H
+#endif //DISAPPOINTMENT_RIFLE_H

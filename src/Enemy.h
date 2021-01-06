@@ -2,19 +2,21 @@
 // Created by Eryk on 28.12.2020.
 //
 
-#ifndef SIMPLERPG_ENEMY_H
-#define SIMPLERPG_ENEMY_H
+#ifndef DISAPPOINTMENT_ENEMY_H
+#define DISAPPOINTMENT_ENEMY_H
+
+#include <optional>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
-namespace SimpleRPG
+namespace Disappointment
 {
 	class Player;
 
 	class Enemy : public sf::Drawable
 	{
 	public:
-		explicit Enemy(sf::Vector2f const& position);
+		explicit Enemy(sf::Vector2f const& position, sf::Texture& texture);
 
 		void update(float delta_time, Player& player);
 
@@ -24,7 +26,12 @@ namespace SimpleRPG
 		sf::FloatRect bodyBounds() const;
 
 	private:
-		bool isPlayerInFieldOfView(Player const& player) const;
+		void playerDetection(Player& player, float delta_time);
+		[[nodiscard]] bool isInFieldOfView(Player const& player) const;
+		void moveToLatestKnownPosition(float delta_time);
+		void rotateToLatestKnownPosition();
+
+		void cooldownTimer(float delta_time);
 
 		void attack(Player& player);
 
@@ -39,11 +46,11 @@ namespace SimpleRPG
 		float cooldown_timer;
 		bool is_on_cooldown;
 
-		sf::FloatRect field_of_view;
-		sf::Vector2f latest_known_player_position;
+		float field_of_view_offset;
+		std::optional<sf::Vector2f> latest_known_position;
 
 		sf::RectangleShape body;
 	};
 }
 
-#endif //SIMPLERPG_ENEMY_H
+#endif //DISAPPOINTMENT_ENEMY_H

@@ -18,13 +18,16 @@ namespace SimpleRPG
 
 		void update(float delta_time, Player& player);
 
-		void attack(Player& player);
 		void hit(unsigned short int value);
 		bool isDead() const;
 
 		sf::FloatRect bodyBounds() const;
 
 	private:
+		bool isPlayerInFieldOfView(Player const& player) const;
+
+		void attack(Player& player);
+
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
@@ -35,6 +38,9 @@ namespace SimpleRPG
 		float attack_cooldown;
 		float cooldown_timer;
 		bool is_on_cooldown;
+
+		sf::FloatRect field_of_view;
+		sf::Vector2f latest_known_player_position;
 
 		sf::RectangleShape body;
 	};

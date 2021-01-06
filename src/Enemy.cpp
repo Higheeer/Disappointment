@@ -44,6 +44,11 @@ void Enemy::attack(Player& player)
 	}
 }
 
+bool Enemy::isPlayerInFieldOfView(const Player& player) const
+{
+	return bodyBounds().intersects(player.bodyBounds());
+}
+
 void Enemy::hit(unsigned short int value)
 {
 	health -= value;

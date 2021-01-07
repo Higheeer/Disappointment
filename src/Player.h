@@ -18,17 +18,20 @@ namespace Disappointment
 	class Player : public sf::Drawable
 	{
 	public:
-		Player(sf::Vector2f const& position, sf::Texture const& texture, sf::RenderWindow& window);
+		Player(sf::Vector2f const& position, sf::RenderWindow& window);
 
 		void input(float delta_time);
 		void event(sf::Event const& event);
+
 		void update(float delta_time, std::vector<Enemy>& enemy);
 
 		void hit(unsigned short int value);
-		bool isDead() const;
+		[[nodiscard]] bool isDead() const;
 
-		sf::FloatRect bodyBounds() const;
-		std::string healthInPrecentage() const;
+		[[nodiscard]] std::string healthInPercentage() const;
+		[[nodiscard]] unsigned short int bulletsLeft() const;
+		[[nodiscard]] unsigned short int magazineSize() const;
+		[[nodiscard]] sf::FloatRect bodyBounds() const;
 
 	private:
 		void move(float delta_time);
@@ -46,6 +49,6 @@ namespace Disappointment
 		sf::RenderWindow& window;
 	};
 
-	float normalize(float value);
+	[[nodiscard]] float normalize(float value);
 }
 #endif //DISAPPOINTMENT_PLAYER_H

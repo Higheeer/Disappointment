@@ -15,7 +15,7 @@ Game::Game()
 	window.setFramerateLimit(60);
 	window.setMouseCursorGrabbed(true);
 
-	player = std::make_unique<Player>(sf::Vector2f{ 128.0f, 128.0f }, texture, window);
+	player = std::make_unique<Player>(sf::Vector2f{ 128.0f, 128.0f }, window);
 
 	enemies = std::make_unique<EnemySupervisor>(*player);
 
@@ -68,7 +68,7 @@ void Game::update()
 
 void Game::draw()
 {
-	window.clear();
+	window.clear(sf::Color(0, 51, 0));
 	window.draw(*player);
 	window.draw(*enemies);
 	window.draw(*hud);

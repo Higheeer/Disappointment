@@ -16,9 +16,12 @@ namespace Disappointment
 	class Weapon : public sf::Drawable
 	{
 	public:
-		virtual void shoot(sf::Vector2f const& player_position) = 0;
+		virtual void shoot(float delta_time, sf::Vector2f const& player_position) = 0;
 		virtual void reload() = 0;
-		virtual void update(float delta_time, std::vector<Enemy>& enemy) = 0;
+		virtual void update(float delta_time, std::vector<Enemy>& enemies) = 0;
+
+		[[nodiscard]] virtual unsigned short int bulletsLeft() const = 0;
+		[[nodiscard]] virtual unsigned short int magazineSize() const = 0;
 	};
 }
 #endif //DISAPPOINTMENT_WEAPON_H

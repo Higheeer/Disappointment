@@ -8,6 +8,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+
 namespace Disappointment
 {
 	class Enemy;
@@ -15,15 +16,18 @@ namespace Disappointment
 	class Bullet : public sf::RectangleShape
 	{
 	public:
-		explicit Bullet(sf::Vector2f const& position, sf::Vector2f const& direction, float angle);
+		explicit Bullet(sf::Vector2f const& position, sf::Vector2f const& move_direction, float angle);
 
-		void update(float delta_time,std::vector<Enemy>& enemy);
-		bool shouldBeDestroyed() const;
+		void update(float delta_time, std::vector<Enemy>& enemies);
+		bool shouldBeDestroyed() const; //TODO wymyślić lepszą nazwe tej metody
 
 	private:
-		float life_time;
-		sf::Vector2f direction;
-		bool should_destroy;
+		void hitTheEnemy(std::vector<Enemy>& enemies);
+
+	private:
+		float existence_time; //TODO nadać bardziej obrazową nazwę tej zmiennej
+		sf::Vector2f move_direction;
+		bool destroyed; //TODO nadać bardziej obrazową nazwę tej zmiennej
 	};
 }
 

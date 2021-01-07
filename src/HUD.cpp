@@ -20,12 +20,14 @@ HUD::HUD()
 
 void HUD::update(Player const& player, sf::RenderTarget const& target)
 {
-	sf::Vector2f converted_screen_coords = target.mapPixelToCoords({0,0});
+	sf::Vector2f converted_screen_coords = target.mapPixelToCoords({ 10, 10 });
 
 	text.setString(
-			"Health: " + player.healthInPrecentage() + '\n' +
-			"Position: " + std::to_string(static_cast<int>(player.bodyBounds().left)) + " : " + std::to_string(static_cast<int>(player.bodyBounds().top))
-			);
+			"Health: " + player.healthInPercentage() + '\n' +
+			"Position: " + std::to_string(static_cast<int>(player.bodyBounds().left)) +
+			" : " + std::to_string(static_cast<int>(player.bodyBounds().top)) + '\n' +
+			"Magazine: " + std::to_string(player.bulletsLeft()) + '/' + std::to_string(player.magazineSize())
+	);
 
 	text.setPosition(converted_screen_coords);
 }

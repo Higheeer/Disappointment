@@ -20,20 +20,24 @@ namespace Disappointment
 	public:
 		explicit Rifle(sf::RenderWindow& window);
 
-		void shoot(sf::Vector2f const& player_position) override;
+		void shoot(float delta_time, sf::Vector2f const& player_position) override;
 		void reload() override;
-		void update(float delta_time, std::vector<Enemy>& enemy) override;
+		void update(float delta_time, std::vector<Enemy>& enemies) override;
+
+		[[nodiscard]] unsigned short int bulletsLeft() const override;
+		[[nodiscard]] unsigned short int magazineSize() const override;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		sf::RenderWindow& window;
 
-		unsigned int magazineSize;
-		unsigned int bulletsInMagazine;
-		sf::RectangleShape body;
+		unsigned int magazine_size;
+		unsigned int bullets_in_magazine;
 
-		std::vector<Bullet> activeBullets;
+		std::vector<Bullet> active_bullets;
+
+		sf::RectangleShape body;
 	};
 }
 

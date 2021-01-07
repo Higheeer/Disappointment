@@ -16,14 +16,14 @@ namespace Disappointment
 	class Enemy : public sf::Drawable
 	{
 	public:
-		explicit Enemy(sf::Vector2f const& position, sf::Texture& texture);
+		explicit Enemy(sf::Vector2f const& position);
 
 		void update(float delta_time, Player& player);
 
 		void hit(unsigned short int value);
-		bool isDead() const;
+		[[nodiscard]] bool isDead() const;
 
-		sf::FloatRect bodyBounds() const;
+		[[nodiscard]] sf::FloatRect bodyBounds() const;
 
 	private:
 		void playerDetection(Player& player, float delta_time);

@@ -11,13 +11,12 @@
 
 using namespace Disappointment;
 
-Enemy::Enemy(sf::Vector2f const& position, sf::Texture& texture)
-		: strength{ 10 }, health{ 100 }, speed{ 50 }, attack_cooldown{ 2.f }, cooldown_timer{ 0 },
+Enemy::Enemy(sf::Vector2f const& position)
+		: strength{ 10 }, health{ 100 }, speed{ 50 }, attack_cooldown{ 2.f }, cooldown_timer{ 0.f },
 		  is_on_cooldown{ false }, field_of_view_offset{ 256 }
 {
 	body.setSize({ 32.f, 32.f });
 	body.setPosition(position);
-	body.setTexture(&texture);
 	body.setRotation(RandomNumberGenerator::getNumber(0, 360));
 	body.setOrigin(bodyBounds().width / 2, bodyBounds().height / 2);
 }
@@ -38,7 +37,7 @@ void Enemy::attack(Player& player)
 			player.hit(strength);
 
 			is_on_cooldown = true;
-			cooldown_timer = 0;
+			cooldown_timer = 0.f;
 		}
 	}
 }
@@ -108,14 +107,14 @@ void Enemy::hit(unsigned short int value)
 	health -= value;
 }
 
+bool Enemy::isDead() const
+{
+	return health <= 0;
+}
+
 sf::FloatRect Enemy::bodyBounds() const
 {
 	return body.getGlobalBounds();
-}
-
-bool Enemy::isDead() const
-{
-	return health < 0;
 }
 
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const

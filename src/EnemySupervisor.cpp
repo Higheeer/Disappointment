@@ -15,8 +15,6 @@ EnemySupervisor::EnemySupervisor(Player& player)
 {
 	enemies.reserve(50);
 
-	texture.loadFromFile("res/textures/Zombie.png");
-
 	for (auto i = 0; i < 50; ++i)
 	{
 		createEnemy();
@@ -26,8 +24,7 @@ EnemySupervisor::EnemySupervisor(Player& player)
 void EnemySupervisor::createEnemy()
 {
 	enemies.emplace_back(
-			sf::Vector2f(RandomNumberGenerator::getNumber(25, 1500), RandomNumberGenerator::getNumber(25, 500)),
-			texture);
+			sf::Vector2f(RandomNumberGenerator::getNumber(25, 1500), RandomNumberGenerator::getNumber(25, 500)));
 }
 
 void EnemySupervisor::removeAll()

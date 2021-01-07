@@ -8,8 +8,8 @@
 
 using namespace Disappointment;
 
-Bullet::Bullet(sf::Vector2f const& position, sf::Vector2f const& direction, float angle)
-		: direction{ direction }, life_time{ 0.f }, should_destroy{false}
+Bullet::Bullet(sf::Vector2f const& position, sf::Vector2f const& move_direction, float angle)
+		: move_direction{ move_direction }, existence_time{ 0.f }, destroyed{ false }
 {
 	setPosition({ position.x, position.y });
 	setRotation(angle);
@@ -17,15 +17,20 @@ Bullet::Bullet(sf::Vector2f const& position, sf::Vector2f const& direction, floa
 	setFillColor(sf::Color::Red);
 }
 
-void Bullet::update(float delta_time, std::vector<Enemy>& enemy)
+void Bullet::update(float delta_time, std::vector<Enemy>& enemies)
 {
-	life_time += delta_time;
-	move(direction);
-	for(auto& i: enemy)
+	existence_time += delta_time;
+	move(move_direction);
+	hitTheEnemy(enemies);
+}
+
+void Bullet::hitTheEnemy(std::vector<Enemy>& enemies)
+{
+	for (auto& i: enemies)
 	{
-		if(getGlobalBounds().intersects(i.bodyBounds()))
+		if (getGlobalBounds().intersects(i.bodyBounds()))
 		{
-			should_destroy = true;
+			destroyed = true;
 			i.hit(5);
 			break;
 		}
@@ -34,5 +39,5 @@ void Bullet::update(float delta_time, std::vector<Enemy>& enemy)
 
 bool Bullet::shouldBeDestroyed() const
 {
-	return life_time >= 2.f || should_destroy;
+	return existence_time >= 2.f || destroyed;
 }

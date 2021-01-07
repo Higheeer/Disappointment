@@ -14,12 +14,11 @@
 
 using namespace Disappointment;
 
-Player::Player(sf::Vector2f const& position, sf::Texture const& texture, sf::RenderWindow& window)
+Player::Player(sf::Vector2f const& position,sf::RenderWindow& window)
 		: max_health{ 250 }, health{ max_health }, window{ window }
 {
 	body.setPosition(position);
 	body.setSize({ PlayerDimensions::width, PlayerDimensions::height });
-	body.setTexture(&texture);
 	body.setOrigin({ PlayerDimensions::origin.first, PlayerDimensions::origin.second });
 
 	weapon = std::make_unique<Rifle>(window);
@@ -100,9 +99,19 @@ void Player::event(sf::Event const& event)
 
 }
 
-std::string Player::healthInPrecentage() const
+std::string Player::healthInPercentage() const
 {
 	return std::to_string(health * 100 / max_health) + '%';
+}
+
+unsigned short int  Player::bulletsLeft() const
+{
+	return weapon->bulletsLeft();
+}
+
+unsigned short int Player::magazineSize() const
+{
+	return weapon->magazineSize();
 }
 
 void Player::hit(unsigned short int value)
@@ -112,7 +121,7 @@ void Player::hit(unsigned short int value)
 
 bool Player::isDead() const
 {
-	return health < 0;
+	return health <= 0;
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

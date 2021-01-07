@@ -30,9 +30,7 @@ namespace Disappointment
 	private:
 		std::vector<Enemy> enemies;
 		Player* player;
-
-		sf::Texture texture;
 	};
 }
 
-#endif //Disappointment_ENEMYSUPERVISOR_H
+#endif //DISAPPOINTMENT_ENEMYSUPERVISOR_H

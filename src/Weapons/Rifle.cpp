@@ -15,33 +15,28 @@
 using namespace Disappointment;
 
 Rifle::Rifle(sf::RenderWindow& window)
-		: window{ window }, magazineSize{ 100 }, bulletsInMagazine{ magazineSize }
+		: window{ window }, magazine_size{ 30 }, bullets_in_magazine{ magazine_size }
 {
 	body.setSize({ 6.f, 16.f });
 	body.setOrigin({ 3.f, 4.f });
 	body.move({ 18.f, 0.f });
 }
 
-void Rifle::reload()
-{
-	bulletsInMagazine = magazineSize;
-}
-
 void Rifle::update(float delta_time, std::vector<Enemy>& enemy)
 {
-	for (auto& i : activeBullets)
+	for (auto& i : active_bullets)
 	{
 		i.update(delta_time, enemy);
 	}
 
-	activeBullets.erase(std::remove_if(activeBullets.begin(), activeBullets.end(),
+	active_bullets.erase(std::remove_if(active_bullets.begin(), active_bullets.end(),
 			[](Bullet const& b)
-			{ return b.shouldBeDestroyed(); }), activeBullets.end());
+			{ return b.shouldBeDestroyed(); }), active_bullets.end());
 }
 
-void Rifle::shoot(sf::Vector2f const& playerPosition)
+void Rifle::shoot(float delta_time, sf::Vector2f const& playerPosition)
 {
-	if (bulletsInMagazine > 0)
+	if (bullets_in_magazine > 0)
 	{
 		sf::Vector2f direction = window.mapPixelToCoords(sf::Mouse::getPosition(window)) - playerPosition;
 		sf::Vector2f normalizedDirection =
@@ -49,19 +44,31 @@ void Rifle::shoot(sf::Vector2f const& playerPosition)
 		auto angle = static_cast<float>(
 				std::atan2(normalizedDirection.y, normalizedDirection.x) * 180 / std::numbers::pi - 270);
 
-		normalizedDirection.x *= 10;
-		normalizedDirection.y *= 10;
+		active_bullets.emplace_back(playerPosition, normalizedDirection, angle);
 
-		activeBullets.emplace_back(playerPosition, normalizedDirection, angle);
-
-		--bulletsInMagazine;
+		--bullets_in_magazine;
 	}
+}
+
+void Rifle::reload()
+{
+	bullets_in_magazine = magazine_size;
+}
+
+unsigned short int Rifle::bulletsLeft() const
+{
+	return bullets_in_magazine;
+}
+
+unsigned short int Rifle::magazineSize() const
+{
+	return magazine_size;
 }
 
 void Rifle::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 
-	for (auto const& i: activeBullets)
+	for (auto const& i: active_bullets)
 	{
 		target.draw(i);
 	}
